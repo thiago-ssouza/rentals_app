@@ -15,7 +15,7 @@ Content:
 <br/>
 - JAVA
 <br/>
-- FIREBASE
+- Firebase
 <br/>
 - API
 <br/>
@@ -32,7 +32,7 @@ Content:
 <br/>
 Final Project - rentals app
 <br/>
-Subject: Android
+Subject: ANDROID MOBILE DEV
 <br/>
 Third Semester: Fall 2023
 <br/>
