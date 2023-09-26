@@ -41,7 +41,7 @@ public class LoginActivity extends AppCompatActivity {
                     userPassword.requestFocus();
                     return;
                 }
-                // To change once firebase is implemented
+                //To change once firebase is implemented
                 if (username.equals("admin") && password.equals("admin")) {
                     // Intent to go to the next activity
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
