@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="5dp"
+    android:gravity="top">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_gravity="left"
+        android:background="@color/light_blue">
+
+        <!-- Line 1 - Tenant Name -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="left">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tenant Name: "
+                android:gravity="left"
+                android:layout_gravity="left"
+                android:textSize="20dp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/textViewListViewFullName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Full Name"
+                android:gravity="left"
+                android:layout_gravity="left"
+                android:textSize="20dp" />
+
+        </LinearLayout>
+
+        <!-- Line 2 - Date -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="left">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Date: "
+                android:gravity="left"
+                android:layout_gravity="left"
+                android:textSize="20dp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/textViewListViewDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2023/10/08"
+                android:gravity="left"
+                android:layout_gravity="left"
+                android:textSize="20dp" />
+
+        </LinearLayout>
+
+        <!-- Line 3 - Tenant's Email -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="left">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Email: "
+                android:layout_gravity="center"
+                android:gravity="left"
+                android:textSize="20dp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/textViewListViewEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="thiago.souza@gmail.com"
+                android:layout_gravity="center"
+                android:gravity="left"
+                android:textSize="20dp"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+        <!-- Line 4 - Tenant's Phone -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="left">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Phone: "
+                android:layout_gravity="center"
+                android:gravity="left"
+                android:textSize="20dp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/textViewListViewPhone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4384539485"
+                android:layout_gravity="center"
+                android:gravity="left"
+                android:textSize="20dp"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+        <!-- Line 5 - Tenant's Message -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="left">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Message: "
+                android:layout_gravity="top"
+                android:gravity="left"
+                android:textSize="20dp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/textViewListViewMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Message"
+                android:layout_gravity="center"
+                android:gravity="left"
+                android:textSize="20dp"
+                android:lines="3"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
