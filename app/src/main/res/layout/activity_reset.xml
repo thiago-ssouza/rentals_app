@@ -8,12 +8,12 @@
     android:orientation="vertical"
     android:padding="50dp"
     android:gravity="center"
-    tools:context=".RegisterActivity">
+    >
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Register"
+        android:text="Reset Password"
         android:textSize="24sp"
         android:textStyle="bold"
         android:layout_marginBottom="50dp"
@@ -23,34 +23,25 @@
         android:id="@+id/firstName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="First Name"
+        android:hint="Name"
         android:inputType="text"
         android:padding="10dp"
         />
 
     <EditText
-        android:id="@+id/lastName"
+        android:id="@+id/phone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Last Name"
-        android:inputType="text"
+        android:hint="Phone"
+        android:inputType="phone"
         android:padding="10dp"
         />
 
     <EditText
-        android:id="@+id/email"
+        android:id="@+id/newPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Email"
-        android:inputType="textEmailAddress"
-        android:padding="10dp"
-        />
-
-    <EditText
-        android:id="@+id/password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Password"
+        android:hint="New Password"
         android:inputType="textPassword"
         android:padding="10dp"
         />
@@ -63,20 +54,12 @@
         android:inputType="textPassword"
         android:padding="10dp"
         />
-    <EditText
-        android:id="@+id/phoneNumber"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Phone"
-        android:inputType="phone"
-        android:padding="10dp"
-        />
 
     <Button
         android:id="@+id/btnRegister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Register"
+        android:text="Reset"
         android:layout_marginTop="16dp"
         />
 
@@ -90,10 +73,10 @@
         />
 
     <TextView
-        android:id="@+id/forgotLink"
+        android:id="@+id/registerLink"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Forgot Password?"
+        android:text="Register"
         android:layout_gravity="center"
         android:layout_marginTop="8dp"
         />
