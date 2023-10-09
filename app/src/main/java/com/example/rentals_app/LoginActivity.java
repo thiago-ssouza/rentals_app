@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 public class LoginActivity extends AppCompatActivity {
@@ -14,6 +16,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText userName;
     private EditText userPassword;
     private Button btnLogin;
+    private Spinner spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +26,13 @@ public class LoginActivity extends AppCompatActivity {
         userName = findViewById(R.id.userName);
         userPassword = findViewById(R.id.userPassword);
         btnLogin = findViewById(R.id.btnLogin);
+        spinner = findViewById(R.id.sp1);
 
+        String[] roles = new String[]{"Select a user","Owner", "Tenant"};
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, roles);
+
+        spinner.setAdapter(adapter);
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -41,8 +50,9 @@ public class LoginActivity extends AppCompatActivity {
                     userPassword.requestFocus();
                     return;
                 }
-                //To change once firebase is implemented
+
                 if (username.equals("admin") && password.equals("admin")) {
+
                     // Intent to go to the next activity
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
