@@ -12,6 +12,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.rentals_app.model.ApartmentModel;
+import com.example.rentals_app.model.MessageModel;
+import com.example.rentals_app.model.OwnerModel;
+import com.example.rentals_app.model.TenantModel;
+import com.example.rentals_app.source.LoginTypes;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -37,17 +43,12 @@ public class ViewApartmentActivity extends AppCompatActivity {
     Button buttonSendMessage;
     Button buttonBackPage;
     LinearLayout linearLayoutMessageFields;
-    /**
-     * need to Uncomment
-     */
-//    LoginTypes loginAs = null;
+
+    LoginTypes loginAs = null;
     Object loggedUser = null;
     Intent intent = null;
 
-    /**
-     * need to Uncomment
-     */
-//    ApartmentModel apartment = null;
+    ApartmentModel apartment = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,119 +76,119 @@ public class ViewApartmentActivity extends AppCompatActivity {
         intent = getIntent();
 
         if (intent != null){
-//            loginAs = (LoginTypes)intent.getSerializableExtra("loginAS");
-//
-//            if(loginAs != null){
-//                if(loginAs.equals(LoginTypes.TENANT)){
-//                    loggedUser = (TenantModel) intent.getSerializableExtra("loggedUser");
-//                    linearLayoutMessageFields.setVisibility(View.VISIBLE);
-//                }else{
-//                    loggedUser = (OwnerModel) intent.getSerializableExtra("loggedUser");
-//                    linearLayoutMessageFields.setVisibility(View.INVISIBLE);
-//                }
-//
-//                apartment = (ApartmentModel) intent.getSerializableExtra("apartment");
-//
-//                if(apartment != null){
-//
-//                    textViewTitle.setText(apartment.getTitle());
-//                    textViewPrice.setText("$" + String.format("%.2f",apartment.getPrice()));
-//                    textViewUnitNumber.setText(String.format(Integer.toString(apartment.getUnitNumber())));
-//                    textViewAddress.setText(apartment.getAddress());
-//                    textViewLocation.setText(apartment.getLocationTypes().getName());
-//                    textViewLocation.setText(apartment.getLocationTypes().toString());
-//                    textViewPostalCode.setText(apartment.getPostalCode());
-//                    textViewSize.setText(String.format(Integer.toString(apartment.getSize())));
-//                    textViewBedrooms.setText(String.format(Integer.toString(apartment.getBedrooms())));
-//                    textViewBathrooms.setText(String.format(Integer.toString(apartment.getBathrooms())));
-//                    textViewStageFloor.setText(String.format(Integer.toString(apartment.getStageFloor())));
-//                    textViewParking.setText(apartment.getHasParking() ? "YES" : "NO");
-//                    textViewHeating.setText(apartment.getHasHeating() ? "YES" : "NO");
-//                    textViewRentalType.setText(apartment.getRentTypes().getName());
-//                    //editTextMessage.setText("Message");
-//                    //buttonSendMessage = findViewById(R.id.btnSendMessage);
-//                    //buttonBackPage = findViewById(R.id.btnPreviousPage);
-//                    //linearLayoutMessageFields = findViewById(R.id.linearLayoutMessageFields);
-//                }else{
-//                    intent = new Intent(ViewApartmentActivity.this, LoginActivity.class);
-//                    startActivity(intent);
-//                }
-//
-//            }else{
-//                intent = new Intent(ViewApartmentActivity.this, LoginActivity.class);
-//                startActivity(intent);
-//            }
+            loginAs = (LoginTypes)intent.getSerializableExtra("loginAS");
+
+            if(loginAs != null){
+                if(loginAs.equals(LoginTypes.TENANT)){
+                    loggedUser = (TenantModel) intent.getSerializableExtra("loggedUser");
+                    linearLayoutMessageFields.setVisibility(View.VISIBLE);
+                }else{
+                    loggedUser = (OwnerModel) intent.getSerializableExtra("loggedUser");
+                    linearLayoutMessageFields.setVisibility(View.INVISIBLE);
+                }
+
+                apartment = (ApartmentModel) intent.getSerializableExtra("apartment");
+
+                if(apartment != null){
+
+                    textViewTitle.setText(apartment.getTitle());
+                    textViewPrice.setText("$" + String.format("%.2f",apartment.getPrice()));
+                    textViewUnitNumber.setText(String.format(Integer.toString(apartment.getUnitNumber())));
+                    textViewAddress.setText(apartment.getAddress());
+                    textViewLocation.setText(apartment.getLocationTypes().getName());
+                    textViewLocation.setText(apartment.getLocationTypes().toString());
+                    textViewPostalCode.setText(apartment.getPostalCode());
+                    textViewSize.setText(String.format(Integer.toString(apartment.getSize())));
+                    textViewBedrooms.setText(String.format(Integer.toString(apartment.getBedrooms())));
+                    textViewBathrooms.setText(String.format(Integer.toString(apartment.getBathrooms())));
+                    textViewStageFloor.setText(String.format(Integer.toString(apartment.getStageFloor())));
+                    textViewParking.setText(apartment.getHasParking() ? "YES" : "NO");
+                    textViewHeating.setText(apartment.getHasHeating() ? "YES" : "NO");
+                    textViewRentalType.setText(apartment.getRentTypes().getName());
+                    //editTextMessage.setText("Message");
+                    buttonSendMessage = findViewById(R.id.btnSendMessage);
+                    //buttonBackPage = findViewById(R.id.btnPreviousPage);
+                    linearLayoutMessageFields = findViewById(R.id.linearLayoutMessageFields);
+                }else{
+                    intent = new Intent(ViewApartmentActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                }
+
+            }else{
+                intent = new Intent(ViewApartmentActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
 
         } else{
-//            intent = new Intent(ViewApartmentActivity.this, LoginActivity.class);
-//            startActivity(intent);
+            intent = new Intent(ViewApartmentActivity.this, LoginActivity.class);
+            startActivity(intent);
         }
 
         buttonSendMessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//
-//                String inputMessage = editTextMessage.getText().toString().trim();
-//
-//                if (inputMessage.isEmpty()) {
-//                    editTextMessage.setError("Password is required");
-//                    editTextMessage.requestFocus();
-//                    return;
-//                }
-//
-//                List<MessageModel> listMessage = new ArrayList<MessageModel>();
-//
-//                MessageModel message = new MessageModel();
-//                message.setTenant((TenantModel) loggedUser);
-//                message.setMessage(inputMessage);
-//                message.setMessageDate(new Date());
-//
-//                listMessage.add(message);
+
+                String inputMessage = editTextMessage.getText().toString().trim();
+
+                if (inputMessage.isEmpty()) {
+                    editTextMessage.setError("Password is required");
+                    editTextMessage.requestFocus();
+                    return;
+                }
+
+                List<MessageModel> listMessage = new ArrayList<MessageModel>();
+
+                MessageModel message = new MessageModel();
+                message.setTenant((TenantModel) loggedUser);
+                message.setMessage(inputMessage);
+                message.setMessageDate(new Date());
+
+                listMessage.add(message);
 
                 /**
                  * Testing with more messages
                  */
 //***************************************************************
-//                message = new MessageModel();
-//                message.setTenant((TenantModel) loggedUser);
-//                message.setMessage(inputMessage);
-//                message.setMessageDate(new Date());
-//
-//                listMessage.add(message);
-//
-//                message = new MessageModel();
-//                message.setTenant((TenantModel) loggedUser);
-//                message.setMessage(inputMessage);
-//                message.setMessageDate(new Date());
-//
-//                listMessage.add(message);
-//
-//                message = new MessageModel();
-//                message.setTenant((TenantModel) loggedUser);
-//                message.setMessage(inputMessage);
-//                message.setMessageDate(new Date());
-//
-//                listMessage.add(message);
-//
-//                message = new MessageModel();
-//                message.setTenant((TenantModel) loggedUser);
-//                message.setMessage(inputMessage);
-//                message.setMessageDate(new Date());
-//
-//                listMessage.add(message);
-//
-//                message = new MessageModel();
-//                message.setTenant((TenantModel) loggedUser);
-//                message.setMessage(inputMessage);
-//                message.setMessageDate(new Date());
-//
-//                listMessage.add(message);
+                message = new MessageModel();
+                message.setTenant((TenantModel) loggedUser);
+                message.setMessage(inputMessage);
+                message.setMessageDate(new Date());
+
+                listMessage.add(message);
+
+                message = new MessageModel();
+                message.setTenant((TenantModel) loggedUser);
+                message.setMessage(inputMessage);
+                message.setMessageDate(new Date());
+
+                listMessage.add(message);
+
+                message = new MessageModel();
+                message.setTenant((TenantModel) loggedUser);
+                message.setMessage(inputMessage);
+                message.setMessageDate(new Date());
+
+                listMessage.add(message);
+
+                message = new MessageModel();
+                message.setTenant((TenantModel) loggedUser);
+                message.setMessage(inputMessage);
+                message.setMessageDate(new Date());
+
+                listMessage.add(message);
+
+                message = new MessageModel();
+                message.setTenant((TenantModel) loggedUser);
+                message.setMessage(inputMessage);
+                message.setMessageDate(new Date());
+
+                listMessage.add(message);
 // **********************************************************************
 
                 editTextMessage.setText("");
 
                 intent.setClass(ViewApartmentActivity.this, MessageListActivity.class);
-                //intent.putExtra("messageList", (Serializable) listMessage);
+                intent.putExtra("messageList", (Serializable) listMessage);
 
                 startActivity(intent);
 
