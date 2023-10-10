@@ -80,13 +80,12 @@
         android:layout_marginTop="16dp"
         />
 
-    <TextView
-        android:id="@+id/loginLink"
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/btnToLogin"
+        android:backgroundTint="@android:color/holo_blue_dark"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Login here"
-        android:layout_gravity="center"
-        android:layout_marginTop="16dp"
         />
 
     <TextView
