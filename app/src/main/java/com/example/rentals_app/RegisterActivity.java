@@ -69,7 +69,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         if (name.isEmpty() || lname.isEmpty() || mail.isEmpty() || pass.isEmpty() || cpass.isEmpty()
                 || phone.isEmpty()) {
-            Toast.makeText(this, "All should be field", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "All fields should be filled", Toast.LENGTH_SHORT).show();
 
             return;
         }

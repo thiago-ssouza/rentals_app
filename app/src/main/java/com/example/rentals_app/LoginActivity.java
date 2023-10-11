@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -25,6 +26,8 @@ public class LoginActivity extends AppCompatActivity {
     private Spinner spinner;
     private FirebaseAuth mAuth;
 
+    private TextView forgotPasswordLink;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +38,7 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin = findViewById(R.id.btnLogin);
         btnRegister = findViewById(R.id.btnRegister);
         spinner = findViewById(R.id.sp1);
+        forgotPasswordLink = findViewById(R.id.forgotPasswordLink);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -57,6 +61,13 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        forgotPasswordLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(LoginActivity.this, ResetActivity.class));
+            }
+        });
     }
 
     private void loginUser() {
@@ -76,7 +87,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         if (username.isEmpty() || password.isEmpty()) {
-            Toast.makeText(this, "All should be field", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "All fields must be filled", Toast.LENGTH_SHORT).show();
 
             return;
         }
@@ -96,6 +107,8 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+
+
 
     }
 }
