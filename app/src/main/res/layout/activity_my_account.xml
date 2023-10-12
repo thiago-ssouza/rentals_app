@@ -58,15 +58,6 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Confirm Password"
-        android:id="@+id/editTextConfirmPassword"
-        android:inputType="textPassword"
-        android:padding="10dp"
-        android:layout_marginBottom="16dp" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:hint="Phone"
         android:id="@+id/editTextPhone"
         android:inputType="phone"
@@ -80,9 +71,15 @@
         android:text="Save"
          />
 
+    <Button
+        android:id="@+id/btnProfile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Profile"
+        />
 
     <TextView
-        android:id="@+id/backToLogin"
+        android:id="@+id/txtLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Back to Login"
