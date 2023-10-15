@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.rentals_app.model.TenantModel;
 import com.example.rentals_app.model.UserModel;
 
 public class MainActivity extends AppCompatActivity {

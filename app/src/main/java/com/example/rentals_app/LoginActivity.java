@@ -120,19 +120,22 @@ public class LoginActivity extends AppCompatActivity {
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             if (snapshot.exists()) {
                                 UserModel loggedUser;
+                                Class destination;
                                 String dbName = snapshot.child(mAuth.getCurrentUser().getUid()).child("firstName").getValue(String.class);
                                 String dbLastName = snapshot.child(mAuth.getCurrentUser().getUid()).child("lastName").getValue(String.class);
                                 String dbEmail = snapshot.child(mAuth.getCurrentUser().getUid()).child("email").getValue(String.class);
                                 String dbPhone = snapshot.child(mAuth.getCurrentUser().getUid()).child("phone").getValue(String.class);
 
-                                if (loginType.equals("TENANT")) {
+                                if (type.equals("TENANT")) {
                                     loggedUser = new TenantModel(dbName, dbLastName, dbEmail, dbPhone);
+                                    destination = SearchAppartmentsActivity.class;
                                 } else {
                                     loggedUser = new OwnerModel(dbName, dbLastName, dbEmail, dbPhone);
+                                    destination = MainActivity.class;
                                 }
 
                                 Toast.makeText(LoginActivity.this, "Login success", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                                Intent intent = new Intent(LoginActivity.this, destination);
 
                                 UserModel.setSession(loggedUser);
                                 intent.putExtra("userUUid", mAuth.getCurrentUser().getUid());

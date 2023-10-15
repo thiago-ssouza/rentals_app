@@ -81,6 +81,16 @@ public class UserModel implements Serializable {
         this.phone = phone;
     }
 
+    public String dataDb() {
+
+        return "UserModel{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                '}';
+    }
+
     @Override
     public String toString() {
         return "UserModel{" +
