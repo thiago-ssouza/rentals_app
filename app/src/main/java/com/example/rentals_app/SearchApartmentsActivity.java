@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
-public class SearchAppartmentsActivity extends AppCompatActivity {
+public class SearchApartmentsActivity extends AppCompatActivity {
     private SearchView searchView;
     private LinearLayout filters;
     private Button filterButton, applyFiltersButton, clearFiltersButton, cancelFiltersButton;

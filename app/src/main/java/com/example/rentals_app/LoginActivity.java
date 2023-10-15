@@ -128,10 +128,10 @@ public class LoginActivity extends AppCompatActivity {
 
                                 if (type.equals("TENANT")) {
                                     loggedUser = new TenantModel(dbName, dbLastName, dbEmail, dbPhone);
-                                    destination = SearchAppartmentsActivity.class;
+                                    destination = SearchApartmentsActivity.class;
                                 } else {
                                     loggedUser = new OwnerModel(dbName, dbLastName, dbEmail, dbPhone);
-                                    destination = MainActivity.class;
+                                    destination = ApartmentsListActivity.class;
                                 }
 
                                 Toast.makeText(LoginActivity.this, "Login success", Toast.LENGTH_SHORT).show();

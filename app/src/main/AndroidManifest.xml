@@ -13,7 +13,13 @@
         android:theme="@style/Theme.Rentals_app"
         tools:targetApi="31">
         <activity
-            android:name=".SearchAppartmentsActivity"
+            android:name=".ApartmentAddActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ApartmentsListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SearchApartmentsActivity"
             android:exported="false" />
         <activity
             android:name=".RegisterActivity"
