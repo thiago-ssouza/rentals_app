@@ -13,19 +13,30 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.rentals_app.model.OwnerModel;
+import com.example.rentals_app.model.TenantModel;
+import com.example.rentals_app.model.UserModel;
+import com.example.rentals_app.source.LoginTypes;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 public class LoginActivity extends AppCompatActivity {
 
     private EditText userName, userPassword;
     private Button btnLogin, btnRegister;
-    private Spinner spinner;
+    private Spinner loginType;
     private FirebaseAuth mAuth;
-
     private TextView forgotPasswordLink;
+    private DatabaseReference reference;
+    private FirebaseDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,16 +47,16 @@ public class LoginActivity extends AppCompatActivity {
         userPassword = findViewById(R.id.userPassword);
         btnLogin = findViewById(R.id.btnLogin);
         btnRegister = findViewById(R.id.btnRegister);
-        spinner = findViewById(R.id.sp1);
+        loginType = findViewById(R.id.loginType);
         forgotPasswordLink = findViewById(R.id.forgotPasswordLink);
 
         mAuth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
 
-        String[] roles = new String[]{"Login as...","Owner", "Tenant"};
+        LoginTypes[] items = LoginTypes.values();
+        ArrayAdapter<LoginTypes> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
+        loginType.setAdapter(adapter);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, roles);
-
-        spinner.setAdapter(adapter);
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -64,7 +75,8 @@ public class LoginActivity extends AppCompatActivity {
         forgotPasswordLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(LoginActivity.this, ResetPasswordActivity.class));
+                Intent intent = new Intent(LoginActivity.this, ResetPasswordActivity.class);
+                startActivity(intent);
             }
         });
     }
@@ -72,6 +84,7 @@ public class LoginActivity extends AppCompatActivity {
     private void loginUser() {
         String username = userName.getText().toString().trim();
         String password = userPassword.getText().toString().trim();
+        String type = loginType.getSelectedItem().toString().trim();
 
         if (username.isEmpty()) {
             userName.setError("Username is required");
@@ -95,14 +108,48 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    Toast.makeText(LoginActivity.this, "Login success", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                    if (type.equals("TENANT")) {
+                        reference = database.getReference("tenants");
+                    } else {
+                        reference = database.getReference("owners");
+                    }
 
-                    startActivity(intent);
-                    finish();
+                    Query checkUserDB = reference.orderByChild("email").equalTo(username);
+                    checkUserDB.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if (snapshot.exists()) {
+                                UserModel loggedUser;
+                                String dbName = snapshot.child(mAuth.getCurrentUser().getUid()).child("firstName").getValue(String.class);
+                                String dbLastName = snapshot.child(mAuth.getCurrentUser().getUid()).child("lastName").getValue(String.class);
+                                String dbEmail = snapshot.child(mAuth.getCurrentUser().getUid()).child("email").getValue(String.class);
+                                String dbPhone = snapshot.child(mAuth.getCurrentUser().getUid()).child("phone").getValue(String.class);
+
+                                if (loginType.equals("TENANT")) {
+                                    loggedUser = new TenantModel(dbName, dbLastName, dbEmail, dbPhone);
+                                } else {
+                                    loggedUser = new OwnerModel(dbName, dbLastName, dbEmail, dbPhone);
+                                }
+
+                                Toast.makeText(LoginActivity.this, "Login success", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+
+                                UserModel.setSession(loggedUser);
+                                intent.putExtra("userUUid", mAuth.getCurrentUser().getUid());
+
+                                startActivity(intent);
+                            } else {
+                                Toast.makeText(LoginActivity.this, "User not found. Please check credentials and try again", Toast.LENGTH_LONG).show();
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
                 } else {
-                    Toast.makeText(LoginActivity.this, "Check Credentials", Toast.LENGTH_SHORT).show();
-
+                    Toast.makeText(LoginActivity.this, "Please check credentials and try again", Toast.LENGTH_LONG).show();
                 }
             }
         });

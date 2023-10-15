@@ -16,8 +16,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class ResetPasswordActivity extends AppCompatActivity {
 
     EditText  email;
-    Button btnReset;
-    TextView loginLink, registerLink;
+    Button btnReset, btnToLogin;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -28,8 +27,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
         email = findViewById(R.id.email);
 
         btnReset = findViewById(R.id.btnReset);
-        loginLink = findViewById(R.id.loginLink);
-        registerLink = findViewById(R.id.forgotLink);
+        btnToLogin = findViewById(R.id.btnToLogin);
 
         btnReset.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,6 +52,14 @@ public class ResetPasswordActivity extends AppCompatActivity {
                                 Toast.makeText(ResetPasswordActivity.this, "Error sending password reset email", Toast.LENGTH_SHORT).show();
                             }
                         });
+            }
+        });
+
+        btnToLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ResetPasswordActivity.this, LoginActivity.class);
+                startActivity(intent);
             }
         });
     }

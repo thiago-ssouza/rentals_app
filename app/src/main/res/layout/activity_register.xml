@@ -73,6 +73,19 @@
         android:padding="10dp"
         />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:text="Register as:"
+        />
+
+    <Spinner
+        android:id="@+id/registerType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
     <Button
         android:id="@+id/btnRegister"
         android:layout_width="match_parent"
@@ -87,14 +100,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Login here"
-        />
-
-    <TextView
-        android:id="@+id/forgotLink"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Forgot Password?"
-        android:layout_gravity="center"
-        android:layout_marginTop="8dp"
         />
 </LinearLayout>

@@ -20,19 +20,12 @@
         android:textSize="24sp"
         android:textStyle="bold"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Start Session"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:layout_marginTop="50dp"/>
-
     <EditText
         android:id="@+id/userName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="user name"
+        android:hint="Username"
+        android:layout_marginTop="50dp"
         android:inputType="text"
         android:minHeight="48dp" />
 
@@ -40,22 +33,30 @@
         android:id="@+id/userPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="user password"
+        android:hint="Password"
         android:inputType="textPassword"
         android:minHeight="48dp" />
-    <Spinner
-        android:id="@+id/sp1"
+
+
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:minHeight="28dp"
-        android:padding="4dp"
+        android:paddingTop="30dp"
+        android:text="Register type:"
+        />
+
+    <Spinner
+        android:id="@+id/loginType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
         android:spinnerMode="dropdown"/>
 
     <Button
         android:id="@+id/btnLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
         android:text="Login"/>
 
 
