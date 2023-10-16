@@ -11,14 +11,14 @@ public class ApartmentModel implements Serializable {
     private int unitNumber;
     private String address;
     private String postalCode;
-    private LocationTypes locationTypes;
+    private LocationTypes location;
     private int size;
     private int bedrooms;
     private int bathrooms;
     private boolean hasParking;
     private boolean hasHeating;
     private int stageFloor;
-    private RentTypes rentTypes;
+    private RentTypes rentType;
     private double price;
     private String title;
     private OwnerModel owner;
@@ -26,18 +26,18 @@ public class ApartmentModel implements Serializable {
     public ApartmentModel() {
     }
 
-    public ApartmentModel(int unitNumber, String address, String postalCode, LocationTypes locationTypes, int size, int bedrooms, int bathrooms, boolean hasParking, boolean hasHeating, int stageFloor, RentTypes rentTypes, double price, String title, OwnerModel owner, StatusTypes status) {
+    public ApartmentModel(int unitNumber, String address, String postalCode, LocationTypes location, int size, int bedrooms, int bathrooms, boolean hasParking, boolean hasHeating, int stageFloor, RentTypes rentType, double price, String title, OwnerModel owner, StatusTypes status) {
         this.unitNumber = unitNumber;
         this.address = address;
         this.postalCode = postalCode;
-        this.locationTypes = locationTypes;
+        this.location = location;
         this.size = size;
         this.bedrooms = bedrooms;
         this.bathrooms = bathrooms;
         this.hasParking = hasParking;
         this.hasHeating = hasHeating;
         this.stageFloor = stageFloor;
-        this.rentTypes = rentTypes;
+        this.rentType = rentType;
         this.price = price;
         this.title = title;
         this.owner = owner;
@@ -68,12 +68,12 @@ public class ApartmentModel implements Serializable {
         this.postalCode = postalCode;
     }
 
-    public LocationTypes getLocationTypes() {
-        return locationTypes;
+    public LocationTypes getLocation() {
+        return location;
     }
 
-    public void setLocationTypes(LocationTypes locationTypes) {
-        this.locationTypes = locationTypes;
+    public void setLocation(LocationTypes location) {
+        this.location = location;
     }
 
     public int getSize() {
@@ -124,12 +124,12 @@ public class ApartmentModel implements Serializable {
         this.stageFloor = stageFloor;
     }
 
-    public RentTypes getRentTypes() {
-        return rentTypes;
+    public RentTypes getRentType() {
+        return rentType;
     }
 
-    public void setRentTypes(RentTypes rentTypes) {
-        this.rentTypes = rentTypes;
+    public void setRentType(RentTypes rentType) {
+        this.rentType = rentType;
     }
 
     public double getPrice() {
@@ -170,14 +170,14 @@ public class ApartmentModel implements Serializable {
                 "unitNumber=" + unitNumber +
                 ", address='" + address + '\'' +
                 ", postalCode='" + postalCode + '\'' +
-                ", locationTypes=" + locationTypes +
+                ", location=" + location +
                 ", size=" + size +
                 ", bedrooms=" + bedrooms +
                 ", bathrooms=" + bathrooms +
                 ", hasParking=" + hasParking +
                 ", hasHeating=" + hasHeating +
                 ", stageFloor=" + stageFloor +
-                ", rentTypes=" + rentTypes +
+                ", rentType=" + rentType +
                 ", price=" + price +
                 ", title='" + title + '\'' +
                 ", owner=" + owner +
