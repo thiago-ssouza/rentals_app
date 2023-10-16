@@ -31,6 +31,9 @@
             android:name=".MessageListActivity"
             android:exported="false" />
         <activity
+            android:name=".MyAccountActivity"
+            android:exported="false" />
+        <activity
             android:name=".ViewApartmentActivity"
             android:exported="false" />
         <activity

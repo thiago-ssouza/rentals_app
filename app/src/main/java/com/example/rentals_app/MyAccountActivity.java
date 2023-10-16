@@ -36,48 +36,48 @@ public class MyAccountActivity extends AppCompatActivity {
         btnSave = findViewById(R.id.btnSave);
         btnProfile = findViewById(R.id.btnProfile);
 
-        btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String newName = name.getText().toString();
-                String newLastName = lastname.getText().toString();
-                String newEmail = email.getText().toString();
-                String newPhone = phone.getText().toString();
-                String newPassword = password.getText().toString();
-
-                if (isNameChanged(newName)) {
-                    Toast.makeText(MyAccountActivity.this, "Name saved done", Toast.LENGTH_SHORT).show();
-                }
-                if (isLastNameChanged(newLastName)) {
-                    Toast.makeText(MyAccountActivity.this, "Last Name saved done", Toast.LENGTH_SHORT).show();
-                }
-                if (isEmailChanged(newEmail)) {
-                    Toast.makeText(MyAccountActivity.this, "Email saved done", Toast.LENGTH_SHORT).show();
-                }
-                if (isPhoneChanged(newPhone)) {
-                    Toast.makeText(MyAccountActivity.this, "Phone saved done", Toast.LENGTH_SHORT).show();
-                }
-                if (isPassChanged(newPassword)) {
-                    Toast.makeText(MyAccountActivity.this, "Password saved done", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(MyAccountActivity.this, "No change", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-        btnProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MyAccountActivity.this, MainActivity.class);
-                intent.putExtra("name", nameuser);
-                intent.putExtra("lastname", lastnameuser);
-                intent.putExtra("email", emailuser);
-                intent.putExtra("username", userusername);
-                intent.putExtra("password", passuser);
-                intent.putExtra("phone", phoneuser);
-                startActivity(intent);
-            }
-        });
+//        btnSave.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                String newName = name.getText().toString();
+//                String newLastName = lastname.getText().toString();
+//                String newEmail = email.getText().toString();
+//                String newPhone = phone.getText().toString();
+//                String newPassword = password.getText().toString();
+//
+//                if (isNameChanged(newName)) {
+//                    Toast.makeText(MyAccountActivity.this, "Name saved done", Toast.LENGTH_SHORT).show();
+//                }
+//                if (isLastNameChanged(newLastName)) {
+//                    Toast.makeText(MyAccountActivity.this, "Last Name saved done", Toast.LENGTH_SHORT).show();
+//                }
+//                if (isEmailChanged(newEmail)) {
+//                    Toast.makeText(MyAccountActivity.this, "Email saved done", Toast.LENGTH_SHORT).show();
+//                }
+//                if (isPhoneChanged(newPhone)) {
+//                    Toast.makeText(MyAccountActivity.this, "Phone saved done", Toast.LENGTH_SHORT).show();
+//                }
+//                if (isPassChanged(newPassword)) {
+//                    Toast.makeText(MyAccountActivity.this, "Password saved done", Toast.LENGTH_SHORT).show();
+//                } else {
+//                    Toast.makeText(MyAccountActivity.this, "No change", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
+//
+//        btnProfile.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(MyAccountActivity.this, MainActivity.class);
+//                intent.putExtra("name", nameuser);
+//                intent.putExtra("lastname", lastnameuser);
+//                intent.putExtra("email", emailuser);
+//                intent.putExtra("username", userusername);
+//                intent.putExtra("password", passuser);
+//                intent.putExtra("phone", phoneuser);
+//                startActivity(intent);
+//            }
+//        });
 
     }
 
