@@ -23,6 +23,7 @@ public class ApartmentModel implements Serializable {
     private String title;
     private OwnerModel owner;
     private StatusTypes status;
+    private String[] images;
     public ApartmentModel() {
     }
 
