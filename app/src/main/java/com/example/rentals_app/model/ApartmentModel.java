@@ -27,8 +27,8 @@ public class ApartmentModel implements Serializable {
     private OwnerModel owner;
     private StatusTypes status;
     private List<String> images;
-
     private List<MessageModel> messages;
+  
     public ApartmentModel() {
     }
 
