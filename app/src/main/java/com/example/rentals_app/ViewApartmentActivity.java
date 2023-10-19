@@ -1,5 +1,4 @@
 package com.example.rentals_app;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
@@ -23,17 +22,13 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 public class ViewApartmentActivity extends AppCompatActivity {
-
-    //ImageView imageViewApartment;
     TextView textViewTitle;
     TextView textViewPrice;
     TextView textViewUnitNumber;
@@ -47,14 +42,11 @@ public class ViewApartmentActivity extends AppCompatActivity {
     TextView textViewParking;
     TextView textViewHeating;
     TextView textViewRentType;
-    EditText editTextViewApartmentMessage;
     TextView textViewViewApartmentDescription;
+    EditText editTextViewApartmentMessage;
     Button buttonSendMessage;
     Button buttonViewApartmentViewMessage;
-    //Button buttonBackPage;
     LinearLayout linearLayoutMessageField;
-    LoginTypes loginAs = null;
-    //Object loggedUser = null;
     Intent intent = null;
     ApartmentModel apartment = null;
     FirebaseDatabase database;
@@ -85,7 +77,6 @@ public class ViewApartmentActivity extends AppCompatActivity {
         textViewViewApartmentDescription = findViewById(R.id.textViewViewApartmentDescription);
         buttonSendMessage = findViewById(R.id.btnSendMessage);
         buttonViewApartmentViewMessage = findViewById(R.id.btnViewApartmentViewMessages);
-//        buttonBackPage = findViewById(R.id.btnPreviousPage);
         linearLayoutMessageField = findViewById(R.id.linearLayoutMessageField);
 
         database = FirebaseDatabase.getInstance();
@@ -93,7 +84,6 @@ public class ViewApartmentActivity extends AppCompatActivity {
 
         loggedUser = UserModel.getSession();
         intent = getIntent();
-//        Class destination;
 
         if (loggedUser instanceof TenantModel) {
             linearLayoutMessageField.setVisibility(View.VISIBLE);
@@ -149,15 +139,7 @@ public class ViewApartmentActivity extends AppCompatActivity {
 
             if(selectedApartmentUID != null){
 
-                //Query checkUserData = reference.orderByChild("username").equalTo(userUsername);
-                // get an apartment by uid
-
-                //Query checkApartmentData = reference.child(selectedApartmentUID);
                 Query checkApartmentData = reference.child(selectedApartmentUID);
-
-//                System.out.println(reference);
-//                System.out.println(reference.child(selectedApartmentUID));
-                //System.out.println(checkApartmentData);
 
                 checkApartmentData.addValueEventListener(new ValueEventListener() {
                     @Override
@@ -256,7 +238,6 @@ public class ViewApartmentActivity extends AppCompatActivity {
 
             }
         });
-
 
         buttonViewApartmentViewMessage.setOnClickListener(new View.OnClickListener() {
             @Override
