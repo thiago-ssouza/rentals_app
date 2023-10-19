@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
+    android:padding="50dp"
     android:orientation="vertical"
     android:background="@color/light_blue">
 
@@ -14,6 +15,7 @@
         android:layout_height="wrap_content"
         android:text="Find Your Ideal Apartment With:"
         android:textSize="27dp"
+        android:gravity="center"
         android:textStyle="bold"
         android:textColor="@color/black"/>
 

@@ -57,7 +57,6 @@ public class MessageAdapter extends ArrayAdapter {
         }else{
             holder = (ViewHolder) convertView.getTag();
         }
-
         holder.tenantFullName.setText(message.getTenant().getFirstName() + " " + message.getTenant().getLastName());
         holder.tenantEmail.setText(message.getMessageDate().toString());
         holder.tenantEmail.setText(message.getTenant().getEmail());
