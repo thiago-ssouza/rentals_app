@@ -1,11 +1,10 @@
 package com.example.rentals_app.model;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class MessageModel implements Serializable {
-
-    private ApartmentModel apartment;
     private TenantModel tenant;
     private String message;
     private Date messageDate;
@@ -13,19 +12,10 @@ public class MessageModel implements Serializable {
     public MessageModel() {
     }
 
-    public MessageModel(ApartmentModel apartment, TenantModel tenant, String message, Date messageDate) {
-        this.apartment = apartment;
+    public MessageModel(TenantModel tenant, String message, Date messageDate) {
         this.tenant = tenant;
         this.message = message;
         this.messageDate = messageDate;
-    }
-
-    public ApartmentModel getApartment() {
-        return apartment;
-    }
-
-    public void setApartment(ApartmentModel apartment) {
-        this.apartment = apartment;
     }
 
     public TenantModel getTenant() {
@@ -55,7 +45,6 @@ public class MessageModel implements Serializable {
     @Override
     public String toString() {
         return "MessageModel{" +
-                "apartment=" + apartment +
                 "tenant=" + tenant +
                 ", message='" + message + '\'' +
                 ", messageDate=" + messageDate +

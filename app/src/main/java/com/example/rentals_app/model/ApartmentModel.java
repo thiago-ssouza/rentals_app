@@ -5,9 +5,11 @@ import com.example.rentals_app.source.RentTypes;
 import com.example.rentals_app.source.StatusTypes;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class ApartmentModel implements Serializable {
 
+    private String id;
     private int unitNumber;
     private String address;
     private String postalCode;
@@ -21,12 +23,16 @@ public class ApartmentModel implements Serializable {
     private RentTypes rentType;
     private double price;
     private String title;
+    private String description;
     private OwnerModel owner;
     private StatusTypes status;
+    private List<String> images;
+
+    private List<MessageModel> messages;
     public ApartmentModel() {
     }
 
-    public ApartmentModel(int unitNumber, String address, String postalCode, LocationTypes location, int size, int bedrooms, int bathrooms, boolean hasParking, boolean hasHeating, int stageFloor, RentTypes rentType, double price, String title, OwnerModel owner, StatusTypes status) {
+    public ApartmentModel(int unitNumber, String address, String postalCode, LocationTypes location, int size, int bedrooms, int bathrooms, boolean hasParking, boolean hasHeating, int stageFloor, RentTypes rentType, double price, String title, String description, OwnerModel owner, StatusTypes status, List<String> images, List<MessageModel> messages) {
         this.unitNumber = unitNumber;
         this.address = address;
         this.postalCode = postalCode;
@@ -40,8 +46,19 @@ public class ApartmentModel implements Serializable {
         this.rentType = rentType;
         this.price = price;
         this.title = title;
+        this.description = description;
         this.owner = owner;
         this.status = status;
+        this.images = images;
+        this.messages = messages;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public int getUnitNumber() {
@@ -100,6 +117,7 @@ public class ApartmentModel implements Serializable {
         this.bathrooms = bathrooms;
     }
 
+
     public boolean getHasParking() {
         return hasParking;
     }
@@ -148,6 +166,14 @@ public class ApartmentModel implements Serializable {
         this.title = title;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public OwnerModel getOwner() {
         return owner;
     }
@@ -162,6 +188,22 @@ public class ApartmentModel implements Serializable {
 
     public void setStatus(StatusTypes status) {
         this.status = status;
+    }
+
+    public List<String> getImages() {
+        return images;
+    }
+
+    public void setImages(List<String> images) {
+        this.images = images;
+    }
+
+    public List<MessageModel> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(List<MessageModel> messages) {
+        this.messages = messages;
     }
 
     @Override
@@ -180,8 +222,11 @@ public class ApartmentModel implements Serializable {
                 ", rentType=" + rentType +
                 ", price=" + price +
                 ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
                 ", owner=" + owner +
-                ", status='" + status + '\'' +
+                ", status=" + status +
+                ", images=" + images +
+                ", messages=" + messages +
                 '}';
     }
 }
