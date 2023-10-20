@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="top"
-    tools:context=".RegisterActivity">
+    tools:context=".ApartmentAddActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
@@ -19,60 +19,202 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         />
 
-    <LinearLayout
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true"
+        android:scrollbars="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Title"
+                />
+
+            <EditText
+                android:id="@+id/txtTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Title"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Price"
+                android:layout_marginTop="20dp"
+                />
+
+            <EditText
+                android:id="@+id/txtPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Price"
+                android:inputType="numberDecimal"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Unit Number"
+                android:layout_marginTop="20dp"
+                />
+
+            <EditText
+                android:id="@+id/txtUnitNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Unit Number"
+                android:inputType="number"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Address"
+                android:layout_marginTop="20dp"
+                />
+
+            <EditText
+                android:id="@+id/txtAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Address"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Location"
+                android:layout_marginTop="20dp"
+                />
+
+            <EditText
+                android:id="@+id/txtLocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Location"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Postal Code"
+                android:layout_marginTop="20dp"
+                />
+
+            <EditText
+                android:id="@+id/txtPostalCode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Postal Code"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Size"
+                android:layout_marginTop="20dp"
+                />
+
+            <EditText
+                android:id="@+id/txtSize"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Size"
+                android:inputType="number"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Bedrooms"
+                android:layout_marginTop="20dp"
+                />
+
+            <EditText
+                android:id="@+id/txtBedrooms"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Bedrooms"
+                android:inputType="number"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Bathrooms"
+                android:layout_marginTop="20dp"
+                />
+
+            <EditText
+                android:id="@+id/txtBathrooms"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Bathrooms"
+                android:inputType="number"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Stage Floor"
+                android:layout_marginTop="20dp"
+                />
+
+            <EditText
+                android:id="@+id/txtStageFloor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Stage Floor"
+                android:inputType="number"
+                />
+
+            <CheckBox
+                android:id="@+id/checkHasParking"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Has Parking"
+                android:layout_marginTop="20dp"
+                />
+
+            <CheckBox
+                android:id="@+id/checkHasHeating"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Has Heating"
+                android:layout_marginTop="20dp"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Rent Type"
+                android:layout_marginTop="20dp"
+                />
+
+            <EditText
+                android:id="@+id/txtRentType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Rent Type"
+                />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/addButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="50dp"
-        android:gravity="top">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Title"
-            />
-        <EditText
-            android:id="@+id/txtAppartmentTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Price"
-            android:layout_marginTop="20dp"
-            />
-        <EditText
-            android:id="@+id/txtAppartmentPrice"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Address"
-            android:layout_marginTop="20dp"
-            />
-        <EditText
-            android:id="@+id/txtAppartmentAddress"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
-
-
-
-
-
-
-        <Button
-            android:id="@+id/addButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Save Apartment"
-            android:layout_marginTop="60dp"
-            />
-    </LinearLayout>
-
-
+        android:text="Save Apartment"
+        android:layout_marginTop="16dp"
+        />
 </LinearLayout>
