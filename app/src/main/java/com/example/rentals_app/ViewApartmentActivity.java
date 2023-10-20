@@ -98,15 +98,16 @@ public class ViewApartmentActivity extends AppCompatActivity {
         }
 
 
-        /// TODO REMOVE AFTER! JUST FOR TESTING!
-        intent = new Intent();
-        /// TODO REMOVE AFTER! JUST FOR TESTING!
-        intent.putExtra("selectedApartmentUID", "-Nh7tsjasRtw-cjUztgm");
+
+        /// TODO REMOVE AFTER! JUST FOR TESTING! MOKING DATA IN CASE OF TESTING WITHOUT APARTMENT LIST ACTIVITY READY
+//        intent = new Intent();
+        /// TODO REMOVE AFTER! JUST FOR TESTING! MOKING DATA IN CASE OF TESTING WITHOUT APARTMENT LIST ACTIVITY READY
+//        intent.putExtra("selectedApartmentUID", "-Nh7tsjasRtw-cjUztgm");
 
         if (intent != null) {
             selectedApartmentUID = intent.getStringExtra("selectedApartmentUID");
 
-            /// TODO REMOVE COMMENT AFTER! ADDING APARTMENT JUST FOR TESTING!
+            /// TODO REMOVE COMMENT AFTER! ADDING APARTMENT JUST FOR TESTING BEFORE ADD APARTMENT READY!
 //            apartment = new ApartmentModel();
 //            apartment.setTitle("3 Bedrooms Apartment for Rent in Montreal!");
 //            apartment.setDescription("Big apartment. Perfectly for family. If you have a domestic animal it is also a ideal apartment! Close to everything!");
