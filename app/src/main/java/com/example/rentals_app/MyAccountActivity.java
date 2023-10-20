@@ -8,6 +8,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.rentals_app.model.OwnerModel;
+import com.example.rentals_app.model.TenantModel;
 import com.example.rentals_app.model.UserModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -18,7 +21,7 @@ import java.util.HashMap;
 
 public class MyAccountActivity extends AppCompatActivity {
 
-    private EditText name, lastname, email, phone, password;
+    private EditText nameEditText, lastnameEditText, emailEditText, phoneEditText;
     private Button btnSave, btnProfile;
     private TextView backToLogin;
     private DatabaseReference userRef;
@@ -31,35 +34,41 @@ public class MyAccountActivity extends AppCompatActivity {
         UserModel loggedUser = UserModel.getSession();
 
         if (loggedUser != null) {
-            name = findViewById(R.id.editTextName);
-            lastname = findViewById(R.id.editTextLastName);
-            email = findViewById(R.id.editTextEmail);
-            phone = findViewById(R.id.editTextPhone);
+            nameEditText = findViewById(R.id.editTextName);
+            lastnameEditText = findViewById(R.id.editTextLastName);
+            emailEditText = findViewById(R.id.editTextEmail);
+            phoneEditText = findViewById(R.id.editTextPhone);
             btnSave = findViewById(R.id.btnSave);
             btnProfile = findViewById(R.id.btnProfile);
 
-            name.setText(loggedUser.getFirstName());
-            lastname.setText(loggedUser.getLastName());
-            email.setText(loggedUser.getEmail());
-            phone.setText(loggedUser.getPhone());
+            nameEditText.setText(loggedUser.getFirstName());
+            lastnameEditText.setText(loggedUser.getLastName());
+            emailEditText.setText(loggedUser.getEmail());
+            phoneEditText.setText(loggedUser.getPhone());
 
             FirebaseDatabase database = FirebaseDatabase.getInstance();
-            userRef = database.getReference("tenants").child(loggedUser.getId());
+
+            if (loggedUser instanceof TenantModel) {
+                userRef = database.getReference("tenants");
+            } else {
+                userRef = database.getReference("owners");
+            }
+
             btnSave.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    String enteredName = name.getText().toString();
-                    String enteredLastname = lastname.getText().toString();
-                    String enteredEmail = email.getText().toString();
-                    String enteredPhone = phone.getText().toString();
+                    String enteredName = nameEditText.getText().toString();
+                    String enteredLastname = lastnameEditText.getText().toString();
+                    String enteredEmail = emailEditText.getText().toString();
+                    String enteredPhone = phoneEditText.getText().toString();
 
-                    HashMap<String, Object> updates = new HashMap<>();
-                    updates.put("firstName", enteredName);
-                    updates.put("lastName", enteredLastname);
-                    updates.put("email", enteredEmail);
-                    updates.put("phone", enteredPhone);
+                    HashMap<String, Object> userDataUpdates = new HashMap<>();
+                    userDataUpdates.put("firstName", enteredName);
+                    userDataUpdates.put("lastName", enteredLastname);
+                    userDataUpdates.put("email", enteredEmail);
+                    userDataUpdates.put("phone", enteredPhone);
 
-                    userRef.updateChildren(updates)
+                    userRef.updateChildren(userDataUpdates)
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(Task<Void> task) {
@@ -72,9 +81,7 @@ public class MyAccountActivity extends AppCompatActivity {
                             });
                 }
             });
-        }
-
-        else {
+        } else {
             Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(MyAccountActivity.this, LoginActivity.class);
             startActivity(intent);
