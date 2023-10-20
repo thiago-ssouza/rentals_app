@@ -10,10 +10,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import com.example.rentals_app.model.UserModel; // Asegúrate de importar UserModel
+
 
 public class ApartmentsListActivity extends AppCompatActivity {
 
     Button createApartmentButton;
+    private UserModel loggedUser;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +27,12 @@ public class ApartmentsListActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        loggedUser = UserModel.getSession();
+        if (loggedUser != null) {
+
+
+        }
 
         createApartmentButton.setOnClickListener(new View.OnClickListener() {
             @Override
