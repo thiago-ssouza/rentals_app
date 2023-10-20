@@ -17,13 +17,10 @@ import com.example.rentals_app.model.UserModel;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class ApartmentsListActivity extends AppCompatActivity {
 
     private UserModel getLoggedUser;
     private List<ApartmentModel> apartmentsList = new ArrayList<>();
-
-
     Button createApartmentButton, updateApartmentButton;
     private UserModel loggedUser;
 
