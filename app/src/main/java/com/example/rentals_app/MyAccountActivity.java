@@ -10,21 +10,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.rentals_app.model.OwnerModel;
-import com.example.rentals_app.model.TenantModel;
 import com.example.rentals_app.model.UserModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.HashMap;
+import com.google.firebase.database.ValueEventListener;
 
 public class MyAccountActivity extends AppCompatActivity {
 
     private EditText nameEditText, lastnameEditText, emailEditText, phoneEditText;
     private Button btnSave, btnProfile;
     private TextView backToLogin;
-    private DatabaseReference userRef;
+    private DatabaseReference ownersRef; // Referencia a la lista de propietarios
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +33,7 @@ public class MyAccountActivity extends AppCompatActivity {
 
         UserModel loggedUser = UserModel.getSession();
 
-        if (loggedUser != null) {
+        if (loggedUser != null && loggedUser instanceof OwnerModel) {
             nameEditText = findViewById(R.id.editTextName);
             lastnameEditText = findViewById(R.id.editTextLastName);
             emailEditText = findViewById(R.id.editTextEmail);
@@ -47,44 +47,59 @@ public class MyAccountActivity extends AppCompatActivity {
             phoneEditText.setText(loggedUser.getPhone());
 
             FirebaseDatabase database = FirebaseDatabase.getInstance();
-
-            if (loggedUser instanceof TenantModel) {
-                userRef = database.getReference("tenants");
-            } else {
-                userRef = database.getReference("owners");
-            }
+            ownersRef = database.getReference("test");
 
             btnSave.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    String enteredName = nameEditText.getText().toString();
-                    String enteredLastname = lastnameEditText.getText().toString();
-                    String enteredEmail = emailEditText.getText().toString();
-                    String enteredPhone = phoneEditText.getText().toString();
+                    // Crear un objeto OwnerModel con los datos actualizados
+                    OwnerModel updatedOwner = new OwnerModel();
 
-                    HashMap<String, Object> userDataUpdates = new HashMap<>();
-                    userDataUpdates.put("firstName", enteredName);
-                    userDataUpdates.put("lastName", enteredLastname);
-                    userDataUpdates.put("email", enteredEmail);
-                    userDataUpdates.put("phone", enteredPhone);
+                    updatedOwner.setId(loggedUser.getId()); // Asegúrate de mantener el ID del usuario
+                    updatedOwner.setFirstName(nameEditText.getText().toString());
+                    updatedOwner.setLastName(lastnameEditText.getText().toString());
+                    updatedOwner.setEmail(emailEditText.getText().toString());
+                    updatedOwner.setPhone(phoneEditText.getText().toString());
 
-                    userRef.updateChildren(userDataUpdates)
+                    // Actualizar o agregar el propietario a la lista de propietarios
+                    ownersRef.child(loggedUser.getId()).setValue(updatedOwner)
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(Task<Void> task) {
                                     if (task.isSuccessful()) {
-                                        Toast.makeText(MyAccountActivity.this, "User data updated successfully!", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(MyAccountActivity.this, "Owner data updated successfully", Toast.LENGTH_SHORT).show();
                                     } else {
-                                        Toast.makeText(MyAccountActivity.this, "Failed to update user data", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(MyAccountActivity.this, "Failed to update owner data", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });
                 }
             });
         } else {
-            Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "User not logged in or not an owner", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(MyAccountActivity.this, LoginActivity.class);
             startActivity(intent);
         }
+    }
+
+    // Método para obtener una lista de propietarios
+    private void getListOfOwners() {
+        ownersRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot ownerSnapshot : dataSnapshot.getChildren()) {
+                    OwnerModel owner = ownerSnapshot.getValue(OwnerModel.class);
+                    if (owner != null) {
+                        // Realiza operaciones con cada propietario
+                        // Por ejemplo, puedes agregarlos a una lista
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Maneja errores si es necesario
+            }
+        });
     }
 }
