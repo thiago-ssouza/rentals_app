@@ -24,7 +24,7 @@ public class ApartmentsListActivity extends AppCompatActivity {
     private List<ApartmentModel> apartmentsList = new ArrayList<>();
 
 
-    Button createApartmentButton;
+    Button createApartmentButton, updateApartmentButton;
     private UserModel loggedUser;
 
     @Override
@@ -33,6 +33,7 @@ public class ApartmentsListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_apartments_list);
 
         createApartmentButton = findViewById(R.id.btnCreate);
+        updateApartmentButton = findViewById(R.id.btnUpdate);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -42,7 +43,6 @@ public class ApartmentsListActivity extends AppCompatActivity {
 
 
         }
-
         createApartmentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -50,6 +50,8 @@ public class ApartmentsListActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
     }
 
     @Override
