@@ -32,17 +32,17 @@
                 android:text="Tenant Name: "
                 android:gravity="left"
                 android:layout_gravity="left"
-                android:textSize="20dp"
+                android:textSize="18dp"
                 android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/textViewListViewFullName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Full Name"
+                android:hint="Full Name"
                 android:gravity="left"
-                android:layout_gravity="left"
-                android:textSize="20dp" />
+                android:layout_gravity="center"
+                android:textSize="15dp" />
 
         </LinearLayout>
 
@@ -60,17 +60,17 @@
                 android:text="Date: "
                 android:gravity="left"
                 android:layout_gravity="left"
-                android:textSize="20dp"
+                android:textSize="18dp"
                 android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/textViewListViewDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2023/10/08"
+                android:hint="yyyy/mm/dd"
                 android:gravity="left"
-                android:layout_gravity="left"
-                android:textSize="20dp" />
+                android:layout_gravity="center"
+                android:textSize="15dp" />
 
         </LinearLayout>
 
@@ -87,17 +87,17 @@
                 android:text="Email: "
                 android:layout_gravity="center"
                 android:gravity="left"
-                android:textSize="20dp"
+                android:textSize="18dp"
                 android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/textViewListViewEmail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="thiago.souza@gmail.com"
+                android:hint="example@email.com"
                 android:layout_gravity="center"
                 android:gravity="left"
-                android:textSize="20dp"
+                android:textSize="15dp"
                 android:layout_weight="1" />
 
         </LinearLayout>
@@ -115,17 +115,17 @@
                 android:text="Phone: "
                 android:layout_gravity="center"
                 android:gravity="left"
-                android:textSize="20dp"
+                android:textSize="18dp"
                 android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/textViewListViewPhone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="4384539485"
                 android:layout_gravity="center"
                 android:gravity="left"
-                android:textSize="20dp"
+                android:hint="2222222222"
+                android:textSize="15dp"
                 android:layout_weight="1" />
 
         </LinearLayout>
@@ -141,9 +141,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Message: "
-                android:layout_gravity="top"
+                android:layout_gravity="center"
                 android:gravity="left"
-                android:textSize="20dp"
+                android:textSize="18dp"
                 android:textStyle="bold"/>
 
             <TextView
@@ -153,12 +153,10 @@
                 android:hint="Message"
                 android:layout_gravity="left"
                 android:gravity="left"
-                android:textSize="20dp"
-                android:lines="5"
+                android:textSize="15dp"
                 android:layout_weight="1" />
 
         </LinearLayout>
-
     </LinearLayout>
 
 </LinearLayout>
