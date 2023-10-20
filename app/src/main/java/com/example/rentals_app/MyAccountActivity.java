@@ -1,7 +1,6 @@
 package com.example.rentals_app;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,141 +8,76 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import com.example.rentals_app.model.UserModel;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.HashMap;
+
 public class MyAccountActivity extends AppCompatActivity {
 
-    EditText name, lastname, email, phone, password;
-    Button btnSave, btnProfile;
-    TextView backToLogin;
-    DatabaseReference reference;
-
-    String nameuser, lastnameuser, emailuser, userusername, passuser, phoneuser;
+    private EditText name, lastname, email, phone, password;
+    private Button btnSave, btnProfile;
+    private TextView backToLogin;
+    private DatabaseReference userRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_account);
 
-        reference = FirebaseDatabase.getInstance().getReference("users");
-        name = findViewById(R.id.editTextName);
-        lastname = findViewById(R.id.editTextLastName);
-        email = findViewById(R.id.editTextEmail);
-        phone = findViewById(R.id.editTextPhone);
-        password = findViewById(R.id.editTextPassword);
-        btnSave = findViewById(R.id.btnSave);
-        btnProfile = findViewById(R.id.btnProfile);
+        UserModel loggedUser = UserModel.getSession();
 
-//        btnSave.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                String newName = name.getText().toString();
-//                String newLastName = lastname.getText().toString();
-//                String newEmail = email.getText().toString();
-//                String newPhone = phone.getText().toString();
-//                String newPassword = password.getText().toString();
-//
-//                if (isNameChanged(newName)) {
-//                    Toast.makeText(MyAccountActivity.this, "Name saved done", Toast.LENGTH_SHORT).show();
-//                }
-//                if (isLastNameChanged(newLastName)) {
-//                    Toast.makeText(MyAccountActivity.this, "Last Name saved done", Toast.LENGTH_SHORT).show();
-//                }
-//                if (isEmailChanged(newEmail)) {
-//                    Toast.makeText(MyAccountActivity.this, "Email saved done", Toast.LENGTH_SHORT).show();
-//                }
-//                if (isPhoneChanged(newPhone)) {
-//                    Toast.makeText(MyAccountActivity.this, "Phone saved done", Toast.LENGTH_SHORT).show();
-//                }
-//                if (isPassChanged(newPassword)) {
-//                    Toast.makeText(MyAccountActivity.this, "Password saved done", Toast.LENGTH_SHORT).show();
-//                } else {
-//                    Toast.makeText(MyAccountActivity.this, "No change", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        });
-//
-//        btnProfile.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(MyAccountActivity.this, MainActivity.class);
-//                intent.putExtra("name", nameuser);
-//                intent.putExtra("lastname", lastnameuser);
-//                intent.putExtra("email", emailuser);
-//                intent.putExtra("username", userusername);
-//                intent.putExtra("password", passuser);
-//                intent.putExtra("phone", phoneuser);
-//                startActivity(intent);
-//            }
-//        });
+        if (loggedUser != null) {
+            name = findViewById(R.id.editTextName);
+            lastname = findViewById(R.id.editTextLastName);
+            email = findViewById(R.id.editTextEmail);
+            phone = findViewById(R.id.editTextPhone);
+            btnSave = findViewById(R.id.btnSave);
+            btnProfile = findViewById(R.id.btnProfile);
 
-    }
+            name.setText(loggedUser.getFirstName());
+            lastname.setText(loggedUser.getLastName());
+            email.setText(loggedUser.getEmail());
+            phone.setText(loggedUser.getPhone());
 
-    private boolean isNameChanged(String newName) {
-        if (!nameuser.equals(newName)) {
-            reference.child(userusername).child("name").setValue(newName);
-            nameuser = newName;
-            return true;
-        } else {
-            return false;
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            userRef = database.getReference("tenants").child(loggedUser.getId());
+            btnSave.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String enteredName = name.getText().toString();
+                    String enteredLastname = lastname.getText().toString();
+                    String enteredEmail = email.getText().toString();
+                    String enteredPhone = phone.getText().toString();
+
+                    HashMap<String, Object> updates = new HashMap<>();
+                    updates.put("firstName", enteredName);
+                    updates.put("lastName", enteredLastname);
+                    updates.put("email", enteredEmail);
+                    updates.put("phone", enteredPhone);
+
+                    userRef.updateChildren(updates)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(MyAccountActivity.this, "User data updated successfully!", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(MyAccountActivity.this, "Failed to update user data", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+                }
+            });
         }
-    }
 
-    private boolean isLastNameChanged(String newLastName) {
-        if (!lastnameuser.equals(newLastName)) {
-            reference.child(userusername).child("lastname").setValue(newLastName);
-            lastnameuser = newLastName;
-            return true;
-        } else {
-            return false;
+        else {
+            Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(MyAccountActivity.this, LoginActivity.class);
+            startActivity(intent);
         }
-    }
-
-    private boolean isEmailChanged(String newEmail) {
-        if (!emailuser.equals(newEmail)) {
-            reference.child(userusername).child("email").setValue(newEmail);
-            emailuser = newEmail;
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    private boolean isPhoneChanged(String newPhone) {
-        if (!phoneuser.equals(newPhone)) {
-            reference.child(userusername).child("phone").setValue(newPhone);
-            phoneuser = newPhone;
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    private boolean isPassChanged(String newPassword) {
-        if (!passuser.equals(newPassword)) {
-            reference.child(userusername).child("password").setValue(newPassword);
-            passuser = newPassword;
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public void showAllUserData() {
-        Intent intent = getIntent();
-        nameuser = intent.getStringExtra("name");
-        lastnameuser = intent.getStringExtra("lastname");
-        emailuser = intent.getStringExtra("email");
-        userusername = intent.getStringExtra("username");
-        passuser = intent.getStringExtra("password");
-        phoneuser = intent.getStringExtra("phone");
-
-        name.setText(nameuser);
-        lastname.setText(lastnameuser);
-        email.setText(emailuser);
-        phone.setText(phoneuser);
-        password.setText(passuser);
     }
 }
