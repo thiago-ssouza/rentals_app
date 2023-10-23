@@ -54,39 +54,7 @@ public class MessageListActivity extends AppCompatActivity {
 
             if(selectedApartmentUID != null){
 
-                //Query checkApartmentData = reference.child(selectedApartmentUID).child("messages");
-                Query checkApartmentData = reference.child(selectedApartmentUID);
-
-                checkApartmentData.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                        if(snapshot.exists()) {
-
-                            textViewListViewApartmentTitle.setText(snapshot.child("title").getValue(String.class));
-                            messageList = new ArrayList<MessageModel>();
-
-//                            for (DataSnapshot messageSpapshot: snapshot.getChildren()) {
-                            for (DataSnapshot messageSpapshot: snapshot.child("messages").getChildren()) {
-
-                                messageList.add(messageSpapshot.getValue(MessageModel.class));
-                            }
-
-                            adapter = new MessageAdapter(messageList, MessageListActivity.this);
-                            listViewMessageList.setAdapter(adapter);
-
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                        Toast.makeText(MessageListActivity.this, "Something wrong!", Toast.LENGTH_SHORT).show();
-                        intent = new Intent(MessageListActivity.this, destination);
-                        startActivity(intent);
-                        finish();
-                    }
-                });
+                getMessageListAndDisplayListView();
 
             }else{
                 Toast.makeText(MessageListActivity.this, "Something wrong!", Toast.LENGTH_SHORT).show();
@@ -97,5 +65,41 @@ public class MessageListActivity extends AppCompatActivity {
             intent = new Intent(MessageListActivity.this, LoginActivity.class);
             startActivity(intent);
         }
+    }
+
+    private void getMessageListAndDisplayListView(){
+        //Query checkApartmentData = reference.child(selectedApartmentUID).child("messages");
+        Query checkApartmentData = reference.child(selectedApartmentUID);
+
+        checkApartmentData.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                if(snapshot.exists()) {
+
+                    textViewListViewApartmentTitle.setText(snapshot.child("title").getValue(String.class));
+                    messageList = new ArrayList<MessageModel>();
+
+//                            for (DataSnapshot messageSpapshot: snapshot.getChildren()) {
+                    for (DataSnapshot messageSpapshot: snapshot.child("messages").getChildren()) {
+
+                        messageList.add(messageSpapshot.getValue(MessageModel.class));
+                    }
+
+                    adapter = new MessageAdapter(messageList, MessageListActivity.this);
+                    listViewMessageList.setAdapter(adapter);
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+                Toast.makeText(MessageListActivity.this, "Something wrong!", Toast.LENGTH_SHORT).show();
+                intent = new Intent(MessageListActivity.this, destination);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 }
