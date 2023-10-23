@@ -11,6 +11,8 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 import com.example.rentals_app.model.ApartmentModel;
+import com.example.rentals_app.model.OwnerModel;
+import com.example.rentals_app.model.UserModel;
 import com.example.rentals_app.source.LocationTypes;
 import com.example.rentals_app.source.RentTypes;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -25,6 +27,8 @@ public class ApartmentAddActivity extends AppCompatActivity {
     CheckBox checkHasParking, checkHasHeating;
     Button addButton;
     private DatabaseReference reference;
+
+    UserModel loggedUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +50,8 @@ public class ApartmentAddActivity extends AppCompatActivity {
         checkHasHeating = findViewById(R.id.checkHasHeating);
         addButton = findViewById(R.id.addButton);
 
+        loggedUser = UserModel.getSession();
+
         reference = FirebaseDatabase.getInstance().getReference().child("apartments");
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,21 +72,26 @@ public class ApartmentAddActivity extends AppCompatActivity {
                 boolean hasHeating = checkHasHeating.isChecked();
 
 
+                OwnerModel owner = new OwnerModel(loggedUser.getFirstName(), loggedUser.getLastName(), loggedUser.getEmail(), loggedUser.getPhone());
+
                 ApartmentModel apartment = new ApartmentModel(unitNumber, address, postalCode, LocationTypes.CITY_OF_MONTREAL, size, bedrooms,
                         bathrooms, hasParking, hasHeating, stageFloor, RentTypes.ROOM_RENTALS_AND_ROOMMATES, price, title, "", null, null, null, null);
 
+                apartment.setOwner(owner);
+
                 reference.push().setValue(apartment).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    Class destination = ApartmentsListActivity.class;
                     @Override
                     public void onSuccess(Void unused) {
                         Toast.makeText(ApartmentAddActivity.this, "New apartment added successfully", Toast.LENGTH_SHORT).show();
-                    }
-                    Intent intent = new Intent(ApartmentAddActivity.this, destination);
 
+
+                        Intent intent = new Intent(ApartmentAddActivity.this, ApartmentsListActivity.class);
+                        startActivity(intent);
+                    }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(ApartmentAddActivity.this, "Failed to add new apartment", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ApartmentAddActivity.this, "Failed to add a new apartment", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
