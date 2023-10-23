@@ -72,7 +72,7 @@ public class ApartmentAddActivity extends AppCompatActivity {
                 boolean hasHeating = checkHasHeating.isChecked();
 
 
-                OwnerModel owner = new OwnerModel(loggedUser.getFirstName(), loggedUser.getLastName(), loggedUser.getEmail(), loggedUser.getPhone());
+                OwnerModel owner = new OwnerModel(loggedUser.getId(),loggedUser.getFirstName(), loggedUser.getLastName(), loggedUser.getEmail(), loggedUser.getPhone());
 
                 ApartmentModel apartment = new ApartmentModel(unitNumber, address, postalCode, LocationTypes.CITY_OF_MONTREAL, size, bedrooms,
                         bathrooms, hasParking, hasHeating, stageFloor, RentTypes.ROOM_RENTALS_AND_ROOMMATES, price, title, "", null, null, null, null);

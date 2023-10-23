@@ -13,6 +13,9 @@ public class OwnerModel extends UserModel implements Serializable {
         super(firstName, lastName, email, phone);
     }
 
+    public OwnerModel(String id, String firstName, String lastName, String email, String phone) {
+    }
+
     public List<ApartmentModel> getApartments() {
         return apartments;
     }
