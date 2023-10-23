@@ -100,9 +100,9 @@ public class ViewApartmentActivity extends AppCompatActivity {
 
 
         /// TODO REMOVE AFTER! JUST FOR TESTING! MOKING DATA IN CASE OF TESTING WITHOUT APARTMENT LIST ACTIVITY READY
-//        intent = new Intent();
+        intent = new Intent();
         /// TODO REMOVE AFTER! JUST FOR TESTING! MOKING DATA IN CASE OF TESTING WITHOUT APARTMENT LIST ACTIVITY READY
-//        intent.putExtra("selectedApartmentUID", "-Nh7tsjasRtw-cjUztgm");
+        intent.putExtra("selectedApartmentUID", "-Nh7tsjasRtw-cjUztgm");
 
         if (intent != null) {
             selectedApartmentUID = intent.getStringExtra("selectedApartmentUID");
@@ -140,63 +140,10 @@ public class ViewApartmentActivity extends AppCompatActivity {
 
             if(selectedApartmentUID != null){
 
-                Query checkApartmentData = reference.child(selectedApartmentUID);
-
-                checkApartmentData.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if(snapshot.exists()) {
-
-                            apartment = new ApartmentModel();
-
-                            apartment.setId(selectedApartmentUID);
-                            apartment.setTitle(snapshot.child("title").getValue(String.class));
-                            apartment.setPrice(snapshot.child("price").getValue(Double.class));
-                            apartment.setUnitNumber(snapshot.child("unitNumber").getValue(Integer.class));
-                            apartment.setAddress(snapshot.child("address").getValue(String.class));
-                            apartment.setLocation(snapshot.child("location").getValue(LocationTypes.class));
-                            apartment.setPostalCode(snapshot.child("postalCode").getValue(String.class));
-                            apartment.setSize(snapshot.child("size").getValue(Integer.class));
-                            apartment.setBedrooms(snapshot.child("bedrooms").getValue(Integer.class));
-                            apartment.setBathrooms(snapshot.child("bathrooms").getValue(Integer.class));
-                            apartment.setStageFloor(snapshot.child("stageFloor").getValue(Integer.class));
-                            apartment.setHasParking(snapshot.child("hasParking").getValue(Boolean.class));
-                            apartment.setHasHeating(snapshot.child("hasHeating").getValue(Boolean.class));
-                            apartment.setRentType(snapshot.child("rentType").getValue(RentTypes.class));
-                            apartment.setDescription(snapshot.child("description").getValue(String.class));
-                            apartment.setOwner(snapshot.child("owner").getValue(OwnerModel.class));
-                            apartment.setStatus(snapshot.child("status").getValue(StatusTypes.class));
-
-                            textViewTitle.setText(apartment.getTitle());
-                            textViewPrice.setText("$" + String.format("%.2f",apartment.getPrice()));
-                            textViewUnitNumber.setText(String.format(Integer.toString(apartment.getUnitNumber())));
-                            textViewAddress.setText(apartment.getAddress());
-                            textViewLocation.setText(apartment.getLocation().getName());
-                            textViewPostalCode.setText(apartment.getPostalCode());
-                            textViewSize.setText(String.format(Integer.toString(apartment.getSize())));
-                            textViewBedrooms.setText(String.format(Integer.toString(apartment.getBedrooms())));
-                            textViewBathrooms.setText(String.format(Integer.toString(apartment.getBathrooms())));
-                            textViewStageFloor.setText(String.format(Integer.toString(apartment.getStageFloor())));
-                            textViewParking.setText(apartment.getHasParking() ? "YES" : "NO");
-                            textViewHeating.setText(apartment.getHasHeating() ? "YES" : "NO");
-                            textViewRentType.setText(apartment.getRentType().getName());
-                            textViewViewApartmentDescription.setText(apartment.getDescription());
-
-                        }
-
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                        Toast.makeText(ViewApartmentActivity.this, "Something wrong!", Toast.LENGTH_SHORT).show();
-                        intent = new Intent(ViewApartmentActivity.this, destination);
-                        startActivity(intent);
-                    }
-                });
+                getApartmentAndSetActivityFields();
 
             }else{
-                Toast.makeText(ViewApartmentActivity.this, "Something wrong!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ViewApartmentActivity.this, "Something wrong! Apartment ID not found!", Toast.LENGTH_SHORT).show();
                 intent = new Intent(ViewApartmentActivity.this, destination);
                 startActivity(intent);
             }
@@ -248,6 +195,63 @@ public class ViewApartmentActivity extends AppCompatActivity {
                 //intent.putExtra("selectedApartmentUID", selectedApartmentUID);
                 startActivity(intent);
                 finish();
+            }
+        });
+    }
+
+    private void getApartmentAndSetActivityFields(){
+        Query checkApartmentData = reference.child(selectedApartmentUID);
+
+        checkApartmentData.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()) {
+
+                    apartment = new ApartmentModel();
+
+                    apartment.setId(selectedApartmentUID);
+                    apartment.setTitle(snapshot.child("title").getValue(String.class));
+                    apartment.setPrice(snapshot.child("price").getValue(Double.class));
+                    apartment.setUnitNumber(snapshot.child("unitNumber").getValue(Integer.class));
+                    apartment.setAddress(snapshot.child("address").getValue(String.class));
+                    apartment.setLocation(snapshot.child("location").getValue(LocationTypes.class));
+                    apartment.setPostalCode(snapshot.child("postalCode").getValue(String.class));
+                    apartment.setSize(snapshot.child("size").getValue(Integer.class));
+                    apartment.setBedrooms(snapshot.child("bedrooms").getValue(Integer.class));
+                    apartment.setBathrooms(snapshot.child("bathrooms").getValue(Integer.class));
+                    apartment.setStageFloor(snapshot.child("stageFloor").getValue(Integer.class));
+                    apartment.setHasParking(snapshot.child("hasParking").getValue(Boolean.class));
+                    apartment.setHasHeating(snapshot.child("hasHeating").getValue(Boolean.class));
+                    apartment.setRentType(snapshot.child("rentType").getValue(RentTypes.class));
+                    apartment.setDescription(snapshot.child("description").getValue(String.class));
+                    apartment.setOwner(snapshot.child("owner").getValue(OwnerModel.class));
+                    apartment.setStatus(snapshot.child("status").getValue(StatusTypes.class));
+
+                    textViewTitle.setText(apartment.getTitle());
+                    textViewPrice.setText("$" + String.format("%.2f",apartment.getPrice()));
+                    textViewUnitNumber.setText(String.format(Integer.toString(apartment.getUnitNumber())));
+                    textViewAddress.setText(apartment.getAddress());
+                    textViewLocation.setText(apartment.getLocation().getName());
+                    textViewPostalCode.setText(apartment.getPostalCode());
+                    textViewSize.setText(String.format(Integer.toString(apartment.getSize())));
+                    textViewBedrooms.setText(String.format(Integer.toString(apartment.getBedrooms())));
+                    textViewBathrooms.setText(String.format(Integer.toString(apartment.getBathrooms())));
+                    textViewStageFloor.setText(String.format(Integer.toString(apartment.getStageFloor())));
+                    textViewParking.setText(apartment.getHasParking() ? "YES" : "NO");
+                    textViewHeating.setText(apartment.getHasHeating() ? "YES" : "NO");
+                    textViewRentType.setText(apartment.getRentType().getName());
+                    textViewViewApartmentDescription.setText(apartment.getDescription());
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+                Toast.makeText(ViewApartmentActivity.this, "Something wrong! Apartment not found! Try again later!", Toast.LENGTH_SHORT).show();
+                intent = new Intent(ViewApartmentActivity.this, destination);
+                startActivity(intent);
             }
         });
     }
