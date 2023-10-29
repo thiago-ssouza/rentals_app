@@ -67,7 +67,7 @@ public class ApartmentEditActivity extends AppCompatActivity {
 
         // temporal solution - id comes from ApartmentListActivity
         intent = getIntent();
-        intent.putExtra("selectedApartmentUID", "-NhCDUAw3HTKmp76MMwb");
+        //intent.putExtra("selectedApartmentUID", "-NhCDUAw3HTKmp76MMwb");
 
         if (intent != null) {
             selectedApartmentUID = intent.getStringExtra("selectedApartmentUID");

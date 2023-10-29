@@ -24,7 +24,7 @@ public class ApartmentAdapter extends ArrayAdapter {
 
 
     public ApartmentAdapter(ArrayList<ApartmentModel> apartmentList, Context context) {
-        super(context, R.layout.activity_apartment_list_item, apartmentList);
+        super(context, R.layout.list_view_apartment, apartmentList);
         this.apartmentList = apartmentList;
         this.context = context;
 
@@ -32,7 +32,7 @@ public class ApartmentAdapter extends ArrayAdapter {
 
     // Holder to create a number, date, and holder the object
     private static class ViewHolder {
-        TextView apartmentTitle;
+        TextView apartmentTitle, apartmentPrice, apartmentLocation, apartmentAddress;
     }
 
     @Override
@@ -46,8 +46,11 @@ public class ApartmentAdapter extends ArrayAdapter {
             // Inflater: Layout of the class that help us to convert the object to the view (Convert to the view)
             LayoutInflater layoutInflater = LayoutInflater.from(getContext());
 
-            convertView = layoutInflater.inflate(R.layout.activity_apartment_list_item, parent, false);
+            convertView = layoutInflater.inflate(R.layout.list_view_apartment, parent, false);
             holder.apartmentTitle = convertView.findViewById(R.id.apartmentTitle);
+            holder.apartmentPrice = convertView.findViewById(R.id.apartmentPrice);
+            holder.apartmentLocation = convertView.findViewById(R.id.apartmentLocation);
+            holder.apartmentAddress = convertView.findViewById(R.id.apartmentAddress);
 
             // We need to set the tag
             convertView.setTag(holder);
@@ -55,6 +58,9 @@ public class ApartmentAdapter extends ArrayAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         holder.apartmentTitle.setText(message.getTitle());
+        holder.apartmentPrice.setText(String.valueOf(message.getPrice()));
+        holder.apartmentLocation.setText(message.getLocation().getName());
+        holder.apartmentAddress.setText(message.getAddress());
 
         return convertView;
 

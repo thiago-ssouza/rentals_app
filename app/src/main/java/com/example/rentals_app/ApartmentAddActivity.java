@@ -82,8 +82,23 @@ public class ApartmentAddActivity extends AppCompatActivity {
                 reference.push().setValue(apartment).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
-                        Toast.makeText(ApartmentAddActivity.this, "New apartment added successfully", Toast.LENGTH_SHORT).show();
 
+                        reference = FirebaseDatabase.getInstance().getReference("owners");
+                        reference.child(loggedUser.getId()).child().push().setValue(apartment).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                Toast.makeText(ApartmentAddActivity.this, "New apartment added successfully", Toast.LENGTH_SHORT).show();
+
+                                Intent intent = new Intent(ApartmentAddActivity.this, ApartmentsListActivity.class);
+                                startActivity(intent);
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(ApartmentAddActivity.this, "Failed to add a new apartment", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                        Toast.makeText(ApartmentAddActivity.this, "New apartment added successfully", Toast.LENGTH_SHORT).show();
 
                         Intent intent = new Intent(ApartmentAddActivity.this, ApartmentsListActivity.class);
                         startActivity(intent);

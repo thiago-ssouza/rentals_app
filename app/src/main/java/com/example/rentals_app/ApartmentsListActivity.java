@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -65,15 +66,23 @@ public class ApartmentsListActivity extends AppCompatActivity {
                     UserModel loggedUser;
 
                     for (DataSnapshot messageSpapshot: snapshot.getChildren()) {
-                        System.out.println("--------------1------------------------");
-                        System.out.println(messageSpapshot.getValue());
-                        System.out.println(messageSpapshot);
-                        System.out.println("--------------2------------------------");
-                        apartments.add(messageSpapshot.getValue(ApartmentModel.class));
+                        ApartmentModel apt = messageSpapshot.getValue(ApartmentModel.class);
+                        apt.setId(messageSpapshot.getKey());
+                        apartments.add(apt);
                     }
 
                     adapter = new ApartmentAdapter(apartments, ApartmentsListActivity.this);
                     apartmentsListView.setAdapter(adapter);
+                    apartmentsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            ApartmentModel apt = apartments.get(position);
+
+                            Intent intent = new Intent(ApartmentsListActivity.this, ApartmentEditActivity.class);
+                            intent.putExtra("selectedApartmentUID", apt.getId());
+                            startActivity(intent);
+                        }
+                    });
 
 
 
@@ -81,6 +90,7 @@ public class ApartmentsListActivity extends AppCompatActivity {
                     Toast.makeText(ApartmentsListActivity.this, "Apartments not found. Please try again", Toast.LENGTH_LONG).show();
                 }
             }
+
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
