@@ -60,10 +60,12 @@ public class MessageListActivity extends AppCompatActivity {
                 Toast.makeText(MessageListActivity.this, "Something wrong!", Toast.LENGTH_SHORT).show();
                 intent = new Intent(MessageListActivity.this, destination);
                 startActivity(intent);
+                finish();
             }
         }else{
             intent = new Intent(MessageListActivity.this, LoginActivity.class);
             startActivity(intent);
+            finish();
         }
     }
 
@@ -80,7 +82,7 @@ public class MessageListActivity extends AppCompatActivity {
                     textViewListViewApartmentTitle.setText(snapshot.child("title").getValue(String.class));
                     messageList = new ArrayList<MessageModel>();
 
-//                            for (DataSnapshot messageSpapshot: snapshot.getChildren()) {
+//                  for (DataSnapshot messageSpapshot: snapshot.getChildren()) {
                     for (DataSnapshot messageSpapshot: snapshot.child("messages").getChildren()) {
 
                         messageList.add(messageSpapshot.getValue(MessageModel.class));

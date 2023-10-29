@@ -91,7 +91,13 @@ public class ApartmentsListActivity extends AppCompatActivity {
             }
         });
 
-
+        updateApartmentButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ApartmentsListActivity.this, ApartmentEditActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
