@@ -27,6 +27,8 @@ public class ApartmentAddActivity extends AppCompatActivity {
     CheckBox checkHasParking, checkHasHeating;
     Button addButton;
     private DatabaseReference reference;
+    private DatabaseReference referenceOwner;
+    ApartmentModel apartment;
 
     UserModel loggedUser;
 
@@ -74,7 +76,7 @@ public class ApartmentAddActivity extends AppCompatActivity {
 
                 OwnerModel owner = new OwnerModel(loggedUser.getId(),loggedUser.getFirstName(), loggedUser.getLastName(), loggedUser.getEmail(), loggedUser.getPhone());
 
-                ApartmentModel apartment = new ApartmentModel(unitNumber, address, postalCode, LocationTypes.CITY_OF_MONTREAL, size, bedrooms,
+                apartment = new ApartmentModel(unitNumber, address, postalCode, LocationTypes.CITY_OF_MONTREAL, size, bedrooms,
                         bathrooms, hasParking, hasHeating, stageFloor, RentTypes.ROOM_RENTALS_AND_ROOMMATES, price, title, "", null, null, null, null);
 
                 apartment.setOwner(owner);
@@ -83,8 +85,9 @@ public class ApartmentAddActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void unused) {
 
-                        reference = FirebaseDatabase.getInstance().getReference("owners");
-                        reference.child(loggedUser.getId()).child().push().setValue(apartment).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        referenceOwner = FirebaseDatabase.getInstance().getReference("owners");
+                        apartment.setOwner(null);
+                        referenceOwner.child(loggedUser.getId()).child("apartments").push().setValue(apartment).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void unused) {
                                 Toast.makeText(ApartmentAddActivity.this, "New apartment added successfully", Toast.LENGTH_SHORT).show();
@@ -98,10 +101,6 @@ public class ApartmentAddActivity extends AppCompatActivity {
                                 Toast.makeText(ApartmentAddActivity.this, "Failed to add a new apartment", Toast.LENGTH_SHORT).show();
                             }
                         });
-                        Toast.makeText(ApartmentAddActivity.this, "New apartment added successfully", Toast.LENGTH_SHORT).show();
-
-                        Intent intent = new Intent(ApartmentAddActivity.this, ApartmentsListActivity.class);
-                        startActivity(intent);
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override

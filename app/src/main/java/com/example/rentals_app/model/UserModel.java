@@ -20,6 +20,14 @@ public class UserModel implements Serializable {
         this.phone = phone;
     }
 
+    public UserModel(String id, String firstName, String lastName, String email, String phone) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phone = phone;
+    }
+
     public static boolean setSession(UserModel userModel)
     {
         if (loggedUser == null) {

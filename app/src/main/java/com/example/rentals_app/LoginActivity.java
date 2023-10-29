@@ -127,10 +127,10 @@ public class LoginActivity extends AppCompatActivity {
                                 String dbPhone = snapshot.child(mAuth.getCurrentUser().getUid()).child("phone").getValue(String.class);
 
                                 if (type.equals("TENANT")) {
-                                    loggedUser = new TenantModel(dbName, dbLastName, dbEmail, dbPhone);
+                                    loggedUser = new TenantModel(mAuth.getCurrentUser().getUid(), dbName, dbLastName, dbEmail, dbPhone);
                                     destination = SearchApartmentsActivity.class;
                                 } else {
-                                    loggedUser = new OwnerModel(dbName, dbLastName, dbEmail, dbPhone);
+                                    loggedUser = new OwnerModel(mAuth.getCurrentUser().getUid(), dbName, dbLastName, dbEmail, dbPhone);
                                     destination = ApartmentsListActivity.class;
                                 }
 
