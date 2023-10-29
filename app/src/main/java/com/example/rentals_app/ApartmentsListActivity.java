@@ -9,10 +9,13 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.rentals_app.model.ApartmentModel;
+import com.example.rentals_app.model.MessageModel;
 import com.example.rentals_app.model.OwnerModel;
 import com.example.rentals_app.model.TenantModel;
 import com.example.rentals_app.model.UserModel;
@@ -28,12 +31,15 @@ import java.util.List;
 
 public class ApartmentsListActivity extends AppCompatActivity {
 
+    ArrayList<ApartmentModel> apartments = new ArrayList<ApartmentModel>();
     private UserModel getLoggedUser;
     private List<ApartmentModel> apartmentsList = new ArrayList<>();
     Button createApartmentButton, updateApartmentButton;
     private UserModel loggedUser;
     FirebaseDatabase database;
     DatabaseReference reference;
+    ListView apartmentsListView;
+    ApartmentAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +48,7 @@ public class ApartmentsListActivity extends AppCompatActivity {
 
         createApartmentButton = findViewById(R.id.btnCreate);
         updateApartmentButton = findViewById(R.id.btnUpdate);
+        apartmentsListView = findViewById(R.id.apartmentsList);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -50,24 +57,28 @@ public class ApartmentsListActivity extends AppCompatActivity {
         reference = database.getReference("apartments");
 
 
-        Query checkUserDB = reference.orderByChild("title");
-        checkUserDB.addListenerForSingleValueEvent(new ValueEventListener() {
+        Query apartmentsQuery = reference.orderByChild("title");
+        apartmentsQuery.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
                     UserModel loggedUser;
-                    Class destination;
-                    String dbName = snapshot.child(mAuth.getCurrentUser().getUid()).child("firstName").getValue(String.class);
 
-                    Toast.makeText(LoginActivity.this, "Login success", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(LoginActivity.this, destination);
+                    for (DataSnapshot messageSpapshot: snapshot.getChildren()) {
+                        System.out.println("--------------1------------------------");
+                        System.out.println(messageSpapshot.getValue());
+                        System.out.println(messageSpapshot);
+                        System.out.println("--------------2------------------------");
+                        apartments.add(messageSpapshot.getValue(ApartmentModel.class));
+                    }
 
-                    UserModel.setSession(loggedUser);
-                    intent.putExtra("userUUid", mAuth.getCurrentUser().getUid());
+                    adapter = new ApartmentAdapter(apartments, ApartmentsListActivity.this);
+                    apartmentsListView.setAdapter(adapter);
 
-                    startActivity(intent);
+
+
                 } else {
-                    Toast.makeText(LoginActivity.this, "User not found. Please check credentials and try again", Toast.LENGTH_LONG).show();
+                    Toast.makeText(ApartmentsListActivity.this, "Apartments not found. Please try again", Toast.LENGTH_LONG).show();
                 }
             }
 
