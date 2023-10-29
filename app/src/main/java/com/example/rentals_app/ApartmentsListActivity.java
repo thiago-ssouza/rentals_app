@@ -33,9 +33,8 @@ import java.util.List;
 public class ApartmentsListActivity extends AppCompatActivity {
 
     ArrayList<ApartmentModel> apartments = new ArrayList<ApartmentModel>();
-    private UserModel getLoggedUser;
     private List<ApartmentModel> apartmentsList = new ArrayList<>();
-    Button createApartmentButton, updateApartmentButton;
+    Button createApartmentButton;
     private UserModel loggedUser;
     FirebaseDatabase database;
     DatabaseReference reference;
@@ -47,23 +46,23 @@ public class ApartmentsListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_apartments_list);
 
+        loggedUser = UserModel.getSession();
+
         createApartmentButton = findViewById(R.id.btnCreate);
-        updateApartmentButton = findViewById(R.id.btnUpdate);
         apartmentsListView = findViewById(R.id.apartmentsList);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         database = FirebaseDatabase.getInstance();
-        reference = database.getReference("apartments");
+        reference = database.getReference("owners");
 
 
-        Query apartmentsQuery = reference.orderByChild("title");
+        Query apartmentsQuery = reference.child(loggedUser.getId()).child("apartments").orderByChild("title");
         apartmentsQuery.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
-                    UserModel loggedUser;
 
                     for (DataSnapshot messageSpapshot: snapshot.getChildren()) {
                         ApartmentModel apt = messageSpapshot.getValue(ApartmentModel.class);
@@ -108,14 +107,6 @@ public class ApartmentsListActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ApartmentsListActivity.this, ApartmentAddActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        updateApartmentButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ApartmentsListActivity.this, ApartmentEditActivity.class);
                 startActivity(intent);
             }
         });
