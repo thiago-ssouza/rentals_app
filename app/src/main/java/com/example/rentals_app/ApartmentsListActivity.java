@@ -38,7 +38,6 @@ public class ApartmentsListActivity extends AppCompatActivity {
         loggedUser = UserModel.getSession();
         if (loggedUser != null) {
 
-
         }
         createApartmentButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,7 +47,13 @@ public class ApartmentsListActivity extends AppCompatActivity {
             }
         });
 
-
+        updateApartmentButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ApartmentsListActivity.this, ApartmentEditActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
