@@ -100,9 +100,9 @@ public class ViewApartmentActivity extends AppCompatActivity {
 
 
         /// TODO REMOVE AFTER! JUST FOR TESTING! MOKING DATA IN CASE OF TESTING WITHOUT APARTMENT LIST ACTIVITY READY
-        intent = new Intent();
+        //intent = new Intent();
         /// TODO REMOVE AFTER! JUST FOR TESTING! MOKING DATA IN CASE OF TESTING WITHOUT APARTMENT LIST ACTIVITY READY
-        intent.putExtra("selectedApartmentUID", "-Nh7tsjasRtw-cjUztgm");
+        //intent.putExtra("selectedApartmentUID", "-Nh7tsjasRtw-cjUztgm");
 
         if (intent != null) {
             selectedApartmentUID = intent.getStringExtra("selectedApartmentUID");
@@ -146,12 +146,14 @@ public class ViewApartmentActivity extends AppCompatActivity {
                 Toast.makeText(ViewApartmentActivity.this, "Something wrong! Apartment ID not found!", Toast.LENGTH_SHORT).show();
                 intent = new Intent(ViewApartmentActivity.this, destination);
                 startActivity(intent);
+                finish();
             }
 
         }else{
             Toast.makeText(ViewApartmentActivity.this, "Something wrong!", Toast.LENGTH_SHORT).show();
             intent = new Intent(ViewApartmentActivity.this, destination);
             startActivity(intent);
+            finish();
         }
 
         buttonSendMessage.setOnClickListener(new View.OnClickListener() {
@@ -190,11 +192,10 @@ public class ViewApartmentActivity extends AppCompatActivity {
         buttonViewApartmentViewMessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                intent.setClass(ViewApartmentActivity.this, MessageListActivity.class);
-                //intent.putExtra("selectedApartmentUID", selectedApartmentUID);
+                intent = new Intent(ViewApartmentActivity.this, MessageListActivity.class);
+                //intent.setClass(ViewApartmentActivity.this, MessageListActivity.class);
+                intent.putExtra("selectedApartmentUID", selectedApartmentUID);
                 startActivity(intent);
-                finish();
             }
         });
     }
@@ -252,6 +253,7 @@ public class ViewApartmentActivity extends AppCompatActivity {
                 Toast.makeText(ViewApartmentActivity.this, "Something wrong! Apartment not found! Try again later!", Toast.LENGTH_SHORT).show();
                 intent = new Intent(ViewApartmentActivity.this, destination);
                 startActivity(intent);
+                finish();
             }
         });
     }

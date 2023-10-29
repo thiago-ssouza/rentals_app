@@ -13,6 +13,9 @@ import androidx.annotation.Nullable;
 
 import com.example.rentals_app.model.MessageModel;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -58,7 +61,8 @@ public class MessageAdapter extends ArrayAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         holder.tenantFullName.setText(message.getTenant().getFirstName() + " " + message.getTenant().getLastName());
-        holder.tenantEmail.setText(message.getMessageDate().toString());
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        holder.tenantMessageDate.setText(dateFormat.format(message.getMessageDate()));
         holder.tenantEmail.setText(message.getTenant().getEmail());
         holder.tenantPhone.setText(message.getTenant().getPhone());
         holder.tenantMessage.setText(message.getMessage());
