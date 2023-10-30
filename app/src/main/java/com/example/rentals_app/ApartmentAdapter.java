@@ -1,10 +1,13 @@
 package com.example.rentals_app;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,23 +24,27 @@ public class ApartmentAdapter extends ArrayAdapter {
 
     ArrayList<ApartmentModel> apartmentList;
     Context context;
+    ApartmentModel message;
+    int type;
 
 
-    public ApartmentAdapter(ArrayList<ApartmentModel> apartmentList, Context context) {
+    public ApartmentAdapter(ArrayList<ApartmentModel> apartmentList, Context context, int type) {
         super(context, R.layout.list_view_apartment, apartmentList);
         this.apartmentList = apartmentList;
         this.context = context;
+        this.type = type;
 
     }
 
     // Holder to create a number, date, and holder the object
     private static class ViewHolder {
         TextView apartmentTitle, apartmentPrice, apartmentLocation, apartmentAddress;
+        Button btnView, btnEdit;
     }
 
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        ApartmentModel message = apartmentList.get(position);
+        message = apartmentList.get(position);
 
         ViewHolder holder;
 
@@ -52,6 +59,9 @@ public class ApartmentAdapter extends ArrayAdapter {
             holder.apartmentLocation = convertView.findViewById(R.id.apartmentLocation);
             holder.apartmentAddress = convertView.findViewById(R.id.apartmentAddress);
 
+            holder.btnView = convertView.findViewById(R.id.btnView);
+            holder.btnEdit = convertView.findViewById(R.id.btnEdit);
+
             // We need to set the tag
             convertView.setTag(holder);
         }else{
@@ -61,6 +71,32 @@ public class ApartmentAdapter extends ArrayAdapter {
         holder.apartmentPrice.setText(String.valueOf(message.getPrice()));
         holder.apartmentLocation.setText(message.getLocation().getName());
         holder.apartmentAddress.setText(message.getAddress());
+
+        if (type == 2) {
+            holder.btnEdit.setVisibility(View.INVISIBLE);
+        } else {
+            holder.btnEdit.setVisibility(View.VISIBLE);
+        }
+
+        holder.btnView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, ViewApartmentActivity.class);
+                intent.putExtra("selectedApartmentUID", message.getId());
+                context.startActivity(intent);
+            }
+        });
+
+        holder.btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, ApartmentEditActivity.class);
+                intent.putExtra("selectedApartmentUID", message.getId());
+                context.startActivity(intent);
+            }
+        });
+
+
 
         return convertView;
 

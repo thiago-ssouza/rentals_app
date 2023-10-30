@@ -29,7 +29,7 @@ public class ApartmentAddActivity extends AppCompatActivity {
     private DatabaseReference reference;
     private DatabaseReference referenceOwner;
     ApartmentModel apartment;
-
+    String apartmentKey;
     UserModel loggedUser;
 
     @Override
@@ -81,13 +81,14 @@ public class ApartmentAddActivity extends AppCompatActivity {
 
                 apartment.setOwner(owner);
 
-                reference.push().setValue(apartment).addOnSuccessListener(new OnSuccessListener<Void>() {
+                apartmentKey = reference.push().getKey();
+                reference.child(apartmentKey).setValue(apartment).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
 
                         referenceOwner = FirebaseDatabase.getInstance().getReference("owners");
                         apartment.setOwner(null);
-                        referenceOwner.child(loggedUser.getId()).child("apartments").push().setValue(apartment).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        referenceOwner.child(loggedUser.getId()).child("apartments").child(apartmentKey).setValue(apartment).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void unused) {
                                 Toast.makeText(ApartmentAddActivity.this, "New apartment added successfully", Toast.LENGTH_SHORT).show();

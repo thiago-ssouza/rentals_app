@@ -32,7 +32,20 @@ public class ApartmentModel implements Serializable {
     public ApartmentModel() {
     }
 
-    public ApartmentModel(int unitNumber, String address, String postalCode, LocationTypes location, int size, int bedrooms, int bathrooms, boolean hasParking, boolean hasHeating, int stageFloor, RentTypes rentType, double price, String title, String description, OwnerModel owner, StatusTypes status, List<String> images, List<MessageModel> messages) {
+
+    public ApartmentModel(String id, String address, LocationTypes location, double price, String title) {
+        this.id = id;
+        this.address = address;
+        this.location = location;
+        this.price = price;
+        this.title = title;
+    }
+
+    public ApartmentModel(int unitNumber, String address, String postalCode, LocationTypes location,
+                          int size, int bedrooms, int bathrooms, boolean hasParking,
+                          boolean hasHeating, int stageFloor, RentTypes rentType, double price,
+                          String title, String description, OwnerModel owner, StatusTypes status,
+                          List<String> images, List<MessageModel> messages) {
         this.unitNumber = unitNumber;
         this.address = address;
         this.postalCode = postalCode;

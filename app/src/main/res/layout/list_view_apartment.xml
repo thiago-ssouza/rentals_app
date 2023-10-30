@@ -65,10 +65,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 >
-                <TextView
+                <Button
+                    android:id="@+id/btnView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text=""
+                    android:text="View"
+                    />
+
+                <Button
+                    android:id="@+id/btnEdit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Edit"
                     />
 
             </LinearLayout>

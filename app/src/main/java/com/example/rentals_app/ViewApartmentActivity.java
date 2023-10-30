@@ -140,6 +140,10 @@ public class ViewApartmentActivity extends AppCompatActivity {
                     public void onSuccess(Void unused) {
                         Toast.makeText(ViewApartmentActivity.this, "Message successful sent!", Toast.LENGTH_SHORT).show();
                         editTextViewApartmentMessage.setText("");
+
+                        Intent intent = new Intent(ViewApartmentActivity.this, SearchApartmentsActivity.class);
+                        startActivity(intent);
+                        finish();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override

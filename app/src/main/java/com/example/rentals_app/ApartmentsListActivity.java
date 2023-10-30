@@ -20,6 +20,7 @@ import com.example.rentals_app.model.MessageModel;
 import com.example.rentals_app.model.OwnerModel;
 import com.example.rentals_app.model.TenantModel;
 import com.example.rentals_app.model.UserModel;
+import com.example.rentals_app.source.LocationTypes;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -65,26 +66,18 @@ public class ApartmentsListActivity extends AppCompatActivity {
                 if (snapshot.exists()) {
 
                     for (DataSnapshot messageSpapshot: snapshot.getChildren()) {
-                        ApartmentModel apt = messageSpapshot.getValue(ApartmentModel.class);
-                        apt.setId(messageSpapshot.getKey());
+                        ApartmentModel apt = new ApartmentModel(
+                                messageSpapshot.getKey(),
+                                messageSpapshot.child("address").getValue(String.class),
+                                messageSpapshot.child("location").getValue(LocationTypes.class),
+                                messageSpapshot.child("price").getValue(Double.class),
+                                messageSpapshot.child("title").getValue(String.class)
+                        );
                         apartments.add(apt);
                     }
 
-                    adapter = new ApartmentAdapter(apartments, ApartmentsListActivity.this);
+                    adapter = new ApartmentAdapter(apartments, ApartmentsListActivity.this, 1);
                     apartmentsListView.setAdapter(adapter);
-                    apartmentsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            ApartmentModel apt = apartments.get(position);
-
-                            Intent intent = new Intent(ApartmentsListActivity.this, ApartmentEditActivity.class);
-                            intent.putExtra("selectedApartmentUID", apt.getId());
-                            startActivity(intent);
-                        }
-                    });
-
-
-
                 } else {
                     Toast.makeText(ApartmentsListActivity.this, "Apartments not found. Please try again", Toast.LENGTH_LONG).show();
                 }

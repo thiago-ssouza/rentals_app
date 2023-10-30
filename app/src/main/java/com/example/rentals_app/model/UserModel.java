@@ -49,10 +49,8 @@ public class UserModel implements Serializable {
 
     public static boolean closeSession()
     {
-        if (loggedUser == null)
-            return false;
-
-        loggedUser = null;
+        if (loggedUser != null)
+            loggedUser = null;
 
         return true;
     }

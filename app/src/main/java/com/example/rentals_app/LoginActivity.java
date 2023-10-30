@@ -57,6 +57,10 @@ public class LoginActivity extends AppCompatActivity {
         ArrayAdapter<LoginTypes> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
         loginType.setAdapter(adapter);
 
+        if (UserModel.getSession() != null) {
+            UserModel.closeSession();
+        }
+
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
