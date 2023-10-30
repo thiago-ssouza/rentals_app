@@ -18,6 +18,8 @@ import com.example.rentals_app.model.UserModel;
 import com.example.rentals_app.source.LocationTypes;
 import com.example.rentals_app.source.RentTypes;
 import com.example.rentals_app.source.StatusTypes;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -36,9 +38,11 @@ public class ApartmentEditActivity extends AppCompatActivity {
     ApartmentModel apartment = null;
     FirebaseDatabase database;
     DatabaseReference reference;
+    DatabaseReference referenceOwner;
     UserModel loggedUser;
     String selectedApartmentUID;
     Class destination;
+    ApartmentModel updatedApartment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,9 +69,7 @@ public class ApartmentEditActivity extends AppCompatActivity {
 
         loggedUser = UserModel.getSession();
 
-        // temporal solution - id comes from ApartmentListActivity
         intent = getIntent();
-        //intent.putExtra("selectedApartmentUID", "-NhCDUAw3HTKmp76MMwb");
 
         if (intent != null) {
             selectedApartmentUID = intent.getStringExtra("selectedApartmentUID");
@@ -158,7 +160,7 @@ public class ApartmentEditActivity extends AppCompatActivity {
                 RentTypes updatedRentType = RentTypes.valueOf(txtRentType.getText().toString());
 
                 // Object creation
-                ApartmentModel updatedApartment = new ApartmentModel();
+                updatedApartment = new ApartmentModel();
 
                 updatedApartment.setId(selectedApartmentUID);
                 updatedApartment.setTitle(updatedTitle);
@@ -179,9 +181,23 @@ public class ApartmentEditActivity extends AppCompatActivity {
                 reference.child(selectedApartmentUID).setValue(updatedApartment)
                         .addOnCompleteListener(task -> {
                             if (task.isSuccessful()) {
-                                Toast.makeText(ApartmentEditActivity.this, "Apartment updated successfully!", Toast.LENGTH_SHORT).show();
-                                intent = new Intent(ApartmentEditActivity.this, ApartmentsListActivity.class);
-                                startActivity(intent);
+                                referenceOwner = FirebaseDatabase.getInstance().getReference("owners");
+                                apartment.setOwner(null);
+                                referenceOwner.child(loggedUser.getId()).child("apartments").child(selectedApartmentUID).setValue(updatedApartment).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+
+                                        Toast.makeText(ApartmentEditActivity.this, "Apartment updated successfully!", Toast.LENGTH_SHORT).show();
+                                        intent = new Intent(ApartmentEditActivity.this, ApartmentsListActivity.class);
+                                        startActivity(intent);
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(ApartmentEditActivity.this, "Failed to edit the apartment", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+
                             } else {
                                 Toast.makeText(ApartmentEditActivity.this, "Something wrong!", Toast.LENGTH_SHORT).show();
                                 intent = new Intent(ApartmentEditActivity.this, ApartmentsListActivity.class);

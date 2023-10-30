@@ -127,9 +127,9 @@ public class ApartmentsListActivity extends AppCompatActivity {
         if (R.id.menuAccount == id) {
             destination = MyAccountActivity.class;
         }
-        if (R.id.menuApartments == id) {
+        /*if (R.id.menuApartments == id) {
             destination = ApartmentsListActivity.class;
-        }
+        }*/
         if (R.id.menuLogOut == id) {
             destination = LoginActivity.class;
         }

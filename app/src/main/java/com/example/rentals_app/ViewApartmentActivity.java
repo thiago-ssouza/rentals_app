@@ -97,46 +97,8 @@ public class ViewApartmentActivity extends AppCompatActivity {
             destination = ApartmentsListActivity.class;
         }
 
-
-
-        /// TODO REMOVE AFTER! JUST FOR TESTING! MOKING DATA IN CASE OF TESTING WITHOUT APARTMENT LIST ACTIVITY READY
-        //intent = new Intent();
-        /// TODO REMOVE AFTER! JUST FOR TESTING! MOKING DATA IN CASE OF TESTING WITHOUT APARTMENT LIST ACTIVITY READY
-        //intent.putExtra("selectedApartmentUID", "-Nh7tsjasRtw-cjUztgm");
-
         if (intent != null) {
             selectedApartmentUID = intent.getStringExtra("selectedApartmentUID");
-
-            /// TODO REMOVE COMMENT AFTER! ADDING APARTMENT JUST FOR TESTING BEFORE ADD APARTMENT READY!
-//            apartment = new ApartmentModel();
-//            apartment.setTitle("3 Bedrooms Apartment for Rent in Montreal!");
-//            apartment.setDescription("Big apartment. Perfectly for family. If you have a domestic animal it is also a ideal apartment! Close to everything!");
-//            apartment.setPrice(2300.00);
-//            apartment.setUnitNumber(444);
-//            apartment.setAddress("Sherbrook St E");
-//            apartment.setLocation(LocationTypes.CITY_OF_MONTREAL);
-//            apartment.setPostalCode("H2H 1T1");
-//            apartment.setSize(4);
-//            apartment.setBedrooms(3);
-//            apartment.setBathrooms(1);
-//            apartment.setStageFloor(2);
-//            apartment.setHasParking(true);
-//            apartment.setHasHeating(true);
-//            apartment.setRentType(RentTypes.ROOM_RENTALS_AND_ROOMMATES);
-//            apartment.setImages(new ArrayList<String>());
-//
-//            UserModel owner = new OwnerModel();
-//            owner.setId("123456");
-//            owner.setFirstName("Sophia");
-//            owner.setLastName("Stanley");
-//            owner.setEmail("sophia@demo.com");
-//            owner.setPhone("8374958394");
-//
-//            apartment.setOwner((OwnerModel) owner);
-//            apartment.setStatus(StatusTypes.AVAILABLE);
-//
-//            reference.push().setValue(apartment);
-
 
             if(selectedApartmentUID != null){
 

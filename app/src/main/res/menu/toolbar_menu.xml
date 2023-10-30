@@ -7,10 +7,10 @@
         android:title="My Account"
         android:id="@+id/menuAccount"
         />
-    <item
+    <!--<item
         android:title="Apartments"
         android:id="@+id/menuApartments"
-        />
+        />-->
     <item
         android:title="Log Out"
         android:id="@+id/menuLogOut"
