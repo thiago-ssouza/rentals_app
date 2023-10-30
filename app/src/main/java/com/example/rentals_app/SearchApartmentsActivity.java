@@ -83,9 +83,6 @@ public class SearchApartmentsActivity extends AppCompatActivity {
             if (filterModel.getFilterBathRooms() > 0) {
                 apartmentsQuery = apartmentsQuery.equalTo(filterModel.getFilterBathRooms(), "bathrooms");
             }
-            if (filterModel.getFilterBathRooms() > 0) {
-                apartmentsQuery = apartmentsQuery.equalTo(filterModel.getFilterBathRooms(), "bathrooms");
-            }
             if (filterModel.isFilterHeating() > 0) {
                 int filter = filterModel.isFilterHeating();
                 apartmentsQuery = apartmentsQuery.equalTo((filter == 1 ? true : false), "hasHeating");
